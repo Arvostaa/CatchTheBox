@@ -7,7 +7,7 @@ var game = new Phaser.Game(640, 480, Phaser.CANVAS, 'game', {
        
     });
 var assetsManager;
-var boxfactory;
+var boxFactory;
 
 function preload() {
    
@@ -18,12 +18,14 @@ function preload() {
     }
 
 function create(){
-	boxfactory = new BoxFactory(game);
-	//game.add.sprite(0, 0, 'box1');
+	boxFactory = new BoxFactory(game);
+ game.stage.backgroundColor = 'rgb(246, 246, 241)';
 
 }
 
 function update(){
+boxFactory.updateBoxes();
+
 
 }
 
