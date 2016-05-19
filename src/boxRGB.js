@@ -1,6 +1,6 @@
 function startBoxRGB(){
 	
-var game = new Phaser.Game(640, 480, Phaser.CANVAS, 'game', {
+var game = new Phaser.Game(WC.GAME_W, WC.GAME_H, Phaser.CANVAS, 'game', {
         preload: preload,
         create: create,
         update: update
