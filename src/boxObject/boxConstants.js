@@ -7,7 +7,7 @@ B_STARTY:0
 
 };
 
-boxConstants.B_STARTY = worldConstants.GAME_H/4- boxConstants.B_H/2
+boxConstants.B_STARTY = 0-boxConstants.B_H- worldConstants.GAME_H/4
 
 
 BC = boxConstants;
