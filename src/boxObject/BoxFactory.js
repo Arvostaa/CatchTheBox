@@ -19,7 +19,7 @@ BoxFactory.prototype.addBox = function(posX, posY, name) {
 
 BoxFactory.prototype.create = function() {
 
-    for (var i = WC.GAME_W / 4 - BC.B_W / 2; i < WC.GAME_W - BC.B_W; i += WC.GAME_W / 4) {
+    for (var i = BC.B_STARTX; i < WC.GAME_W - BC.B_W; i += WC.GAME_W / 4) {
         
     
         this.addBox(i, BC.B_STARTY, 'box1');    
@@ -78,8 +78,8 @@ BoxFactory.prototype.changeRGB = function(box) {
         rValue += 90;
     }*/
 
-}
+};
 BoxFactory.prototype.RGBtoHEX = function(r, g, b) {
 
     return r << 16 | g << 8 | b;
-}
+};
