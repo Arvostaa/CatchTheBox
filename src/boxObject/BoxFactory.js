@@ -37,6 +37,18 @@ BoxFactory.prototype.create = function() {
 
 };
 
+//REMOVE CATCHED BOX//
+
+BoxFactory.prototype.catchTheBox = function(){
+
+console.log("CATCH THE BOX");
+this.boxGroup.forEach(this.checkButtonOverlap, this);
+
+};
+
+
+
+
 //MOVEMENT//
 
 
@@ -50,9 +62,24 @@ BoxFactory.prototype.wrapBox = function(box) {
 
 };
 
+BoxFactory.prototype.checkButtonOverlap = function(box){
+   //console.log("checkoverlap: roznica = " + box.y + "PRZYCISK = " + BC.B_H);
+/*
+if (this.game.physics.arcade.distanceBetween(box, ) < entity.noticeRange) {
+        console.log(this.entity.noticeReaction || "I don't know hat to do");
+    }*/
+    if(375 - box.y < BC.B_H/4){
+       box.y = BC.B_STARTY;
+        this.changeRGB(box);
+        console.log("CATCHED!!");
+    }
+
+};
+
 BoxFactory.prototype.updateBoxes = function() {
 
     this.boxGroup.forEach(this.wrapBox, this);
+    
 
 };
 

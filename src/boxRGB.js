@@ -27,12 +27,14 @@ function startBoxRGB() {
        // cursorsManager.buttonSignal.add(buttons.setActiveButtonIndex, buttons);
        signalsManager = new SignalsManager(game);
        signalsManager.buttonSignal.add(buttons.setActiveButtonIndex,buttons);
+       signalsManager.boxSignal.add(boxFactory.catchTheBox, boxFactory);
 
     }
 
     function update() {
       
           signalsManager.sendButtonSignal();
+          signalsManager.sendBoxSignal();
           boxFactory.updateBoxes();
      //   buttons.cursors.checkCursor();
 

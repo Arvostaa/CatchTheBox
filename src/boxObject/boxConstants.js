@@ -4,7 +4,8 @@ B_SPEED: 100,
 B_W: 50,
 B_H: 50,
 B_STARTY:0,
-B_STARTX:0
+B_STARTX:0,
+
 
 };
 

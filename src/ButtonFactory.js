@@ -2,9 +2,6 @@ ButtonFactory = function(game) {
 
     this.buttonGroup = game.add.physicsGroup();
     this.game = game;
-    this.cursors = new CursorsManager(game);
-    //this.cursors.buttonSignal.add(this.setActiveButtonIndex, this);//add
-
     this.create();
     this.activateButton(this.buttonGroup.children[0]);
     this.buttonGroup.setAll('body.immovable', true);
@@ -31,7 +28,7 @@ ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
             
         } else {
             this.activeButtonIndex -= 1;
-             console.log(this.activeButtonIndex);
+           //  console.log(this.activeButtonIndex);
         }
       
     } else if (direction == CC.RIGHT) {
