@@ -9,7 +9,7 @@ function startBoxRGB() {
     var assetsManager;
     var buttons;
     var boxFactory;
-    var cursorsManager;
+    var signalsManager;
 
     function preload() {
         game.load.image("background", "assets/background.png");
@@ -23,14 +23,18 @@ function startBoxRGB() {
         game.add.tileSprite(0, 0, 640, 480, 'background');
         buttons = new ButtonFactory(game);
         boxFactory = new BoxFactory(game);
-        cursorsManager = new CursorsManager(game, boxFactory, buttons);
-
+       // cursorsManager = new CursorsManager(game, boxFactory, buttons);
+       // cursorsManager.buttonSignal.add(buttons.setActiveButtonIndex, buttons);
+       signalsManager = new SignalsManager(game);
+       signalsManager.buttonSignal.add(buttons.setActiveButtonIndex,buttons);
 
     }
 
     function update() {
-        boxFactory.updateBoxes();
-        buttons.cursors.checkCursor();
+      
+          signalsManager.sendButtonSignal();
+          boxFactory.updateBoxes();
+     //   buttons.cursors.checkCursor();
 
 
     }

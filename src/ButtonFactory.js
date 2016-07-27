@@ -3,7 +3,7 @@ ButtonFactory = function(game) {
     this.buttonGroup = game.add.physicsGroup();
     this.game = game;
     this.cursors = new CursorsManager(game);
-    this.cursors.signal.add(this.setActiveButtonIndex, this);
+    //this.cursors.buttonSignal.add(this.setActiveButtonIndex, this);//add
 
     this.create();
     this.activateButton(this.buttonGroup.children[0]);
@@ -13,26 +13,29 @@ ButtonFactory = function(game) {
 };
 
 ButtonFactory.prototype.create = function() {
+    console.log("CREESAATE");
     this.buttonGroup.create(BC.B_STARTX - BC.B_W / 4, 375, 'button');
     this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 4 - BC.B_W / 4, 375, 'button');
     this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 2 - BC.B_W / 4, 375, 'button');
     this.activeButtonIndex = 0;
+    console.log("activeButtonIndex:CREATE " + this.activeButtonIndex);
 };
 
 ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
-    console.log("DIRECTION = " + direction);
-
+ //   console.log("przekazanyDIRECTION = " + direction);
+ //   console.log("activeButtonIndex: " + this.activeButtonIndex);
     if (direction == CC.LEFT) {
-        console.log("BUTTONS: LEFT");
+ //       console.log("BUTTONS: LEFT");
         if (this.activeButtonIndex == 0) {
             this.activeButtonIndex = 0;
+            
         } else {
             this.activeButtonIndex -= 1;
+             console.log(this.activeButtonIndex);
         }
-
-        console.log(this.activeButtonIndex);
+      
     } else if (direction == CC.RIGHT) {
-        console.log("BUTTONS: RIGHT");
+ //       console.log("BUTTONS: RIGHT");
 
         if (this.activeButtonIndex == 2) {
             this.activeButtonIndex = 2;
@@ -40,7 +43,7 @@ ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
             this.activeButtonIndex += 1;
         }
     }
-    console.log(this.activeButtonIndex);
+//    console.log(this.activeButtonIndex);
     this.activateButton(this.buttonGroup.children[this.activeButtonIndex]);
 
 };

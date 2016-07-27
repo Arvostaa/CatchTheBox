@@ -1,19 +1,17 @@
 CursorsManager = function(game) {
 
-    this.cursors = game.input.keyboard.createCursorKeys();
+    this.cursors = game.input.keyboard.createCursorKeys(); //OGARNIJ KEYBOARD.DURATION
+    this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.game = game;
-    this.signal = new Phaser.Signal();
+    this.buttonSignal = new Phaser.Signal();//create s
     this.direction;
     var cursorPause = 0;
 
 };
 
-CursorsManager.prototype.sendSignal = function() {
-    console.log("sendSignal");
-};
+/*
 
 CursorsManager.prototype.checkCursor = function() {
-
 
     if (this.cursorPause > this.game.time.now) {
         console.log("jeszczenot");
@@ -25,7 +23,7 @@ CursorsManager.prototype.checkCursor = function() {
         //console.log("time: " + this.game.time.now + ", cPause: " + this.cursorPause);
         this.direction = CC.LEFT;
        
-        this.signal.dispatch(this.direction);
+        this.buttonSignal.dispatch(this.direction);
         console.log("left");
          this.cursorPause = this.game.time.now + 200;
         return;
@@ -35,8 +33,16 @@ CursorsManager.prototype.checkCursor = function() {
         this.direction = CC.RIGHT;
         console.log("right");
      //   this.cursorPause = this.game.time.now + 100;
-        this.signal.dispatch(this.direction);
+        this.buttonSignal.dispatch(this.direction);
         this.cursorPause = this.game.time.now + 200;
         return;
     }
+
+    else if(this.spaceKey.isDown){
+        console.log("SPACEKEYISDOWN");
+        this.boxSignal.dispatch();
+        return;
+    }
+
 }
+*/

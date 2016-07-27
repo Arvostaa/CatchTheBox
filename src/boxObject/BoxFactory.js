@@ -2,6 +2,9 @@ BoxFactory = function(game) {
 
     this.boxGroup = game.add.physicsGroup();
     this.game = game;
+
+    this.boxSignal = new Phaser.Signal(); //create s
+
     this.create();
     this.boxGroup.setAll('body.immovable', false);
     this.boxGroup.setAll('body.velocity.y', BC.B_SPEED);
@@ -20,14 +23,14 @@ BoxFactory.prototype.addBox = function(posX, posY, name) {
 BoxFactory.prototype.create = function() {
 
     for (var i = BC.B_STARTX; i < WC.GAME_W - BC.B_W; i += WC.GAME_W / 4) {
-        
-    
-        this.addBox(i, BC.B_STARTY, 'box1');    
+
+
+        this.addBox(i, BC.B_STARTY, 'box1');
         this.addBox(i, 0 - BC.B_H, 'box1');
-        this.addBox(i, WC.GAME_H / 4 - BC.B_H , 'box1');
-        this.addBox(i, WC.GAME_H / 2 - BC.B_H , 'box1');
-        this.addBox(i, 3*WC.GAME_H/4 - BC.B_H , 'box1');
-        this.addBox(i, WC.GAME_H- BC.B_H , 'box1');
+        this.addBox(i, WC.GAME_H / 4 - BC.B_H, 'box1');
+        this.addBox(i, WC.GAME_H / 2 - BC.B_H, 'box1');
+        this.addBox(i, 3 * WC.GAME_H / 4 - BC.B_H, 'box1');
+        this.addBox(i, WC.GAME_H - BC.B_H, 'box1');
 
 
     }
@@ -40,7 +43,7 @@ BoxFactory.prototype.create = function() {
 BoxFactory.prototype.wrapBox = function(box) {
 
 
-    if (box.y >= 480 + 3*BC.B_H/2) {
+    if (box.y >= 480 + 3 * BC.B_H / 2) {
         box.y = BC.B_STARTY;
         this.changeRGB(box);
     }

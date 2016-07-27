@@ -1,6 +1,7 @@
 cursorsConstants = {
     LEFT: "left",
-    RIGHT: "right"
+    RIGHT: "right",
+    SPACE: "space",
 };
 
 
