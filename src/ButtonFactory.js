@@ -25,9 +25,11 @@ ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
  //       console.log("BUTTONS: LEFT");
         if (this.activeButtonIndex == 0) {
             this.activeButtonIndex = 0;
+            WC.BUTTON = 0;
             
         } else {
             this.activeButtonIndex -= 1;
+             WC.BUTTON -= 1;
            //  console.log(this.activeButtonIndex);
         }
       
@@ -36,8 +38,10 @@ ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
 
         if (this.activeButtonIndex == 2) {
             this.activeButtonIndex = 2;
+            WC.BUTTON = 2;
         } else {
             this.activeButtonIndex += 1;
+            WC.BUTTON += 1;
         }
     }
 //    console.log(this.activeButtonIndex);

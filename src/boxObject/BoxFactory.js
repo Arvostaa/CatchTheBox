@@ -39,21 +39,16 @@ BoxFactory.prototype.create = function() {
 
 //REMOVE CATCHED BOX//
 
-BoxFactory.prototype.catchTheBox = function(){
+BoxFactory.prototype.catchTheBox = function() {
 
-console.log("CATCH THE BOX");
-this.boxGroup.forEach(this.checkButtonOverlap, this);
+    console.log("CATCH THE BOX");
+    this.boxGroup.forEach(this.checkButtonOverlap, this);
 
 };
 
-
-
-
 //MOVEMENT//
 
-
 BoxFactory.prototype.wrapBox = function(box) {
-
 
     if (box.y >= 480 + 3 * BC.B_H / 2) {
         box.y = BC.B_STARTY;
@@ -62,25 +57,43 @@ BoxFactory.prototype.wrapBox = function(box) {
 
 };
 
-BoxFactory.prototype.checkButtonOverlap = function(box){
-   //console.log("checkoverlap: roznica = " + box.y + "PRZYCISK = " + BC.B_H);
-/*
-if (this.game.physics.arcade.distanceBetween(box, ) < entity.noticeRange) {
-        console.log(this.entity.noticeReaction || "I don't know hat to do");
-    }*/
-    if(375 - box.y < BC.B_H/4){
-       box.y = BC.B_STARTY;
-        this.changeRGB(box);
-        console.log("CATCHED!!");
-    }
+BoxFactory.prototype.checkButtonOverlap = function(box) {
 
+    if (375 - box.y < BC.B_H / 4) {
+
+        switch (WC.BUTTON) {
+
+            case 0:
+                if (box.z >= 0 && box.z <= 5) {
+                    console.log("id = " + box.z); //.Z PROPERTY = OBJECT'S INDEX IN THE GROUP
+                    box.y = BC.B_STARTY;
+                    this.changeRGB(box);
+                    console.log("CATCHED!!");
+
+                }
+                break;
+
+            case 1:
+                if (box.z >= 6 && box.z <= 11) {
+                    box.y = BC.B_STARTY;
+                    this.changeRGB(box);
+                    console.log("CATCHED!!");
+                }
+                break;
+
+            case 2:           
+                if (box.z >= 12 && box.z <= 17) {
+                    box.y = BC.B_STARTY;
+                    this.changeRGB(box);
+                    console.log("CATCHED!!");
+                }
+                break;
+        }
+    }
 };
 
 BoxFactory.prototype.updateBoxes = function() {
-
     this.boxGroup.forEach(this.wrapBox, this);
-    
-
 };
 
 //COLORS//
@@ -110,6 +123,5 @@ BoxFactory.prototype.changeRGB = function(box) {
 
 };
 BoxFactory.prototype.RGBtoHEX = function(r, g, b) {
-
     return r << 16 | g << 8 | b;
 };
