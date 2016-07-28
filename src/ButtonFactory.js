@@ -19,22 +19,19 @@ ButtonFactory.prototype.create = function() {
 };
 
 ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
- //   console.log("przekazanyDIRECTION = " + direction);
- //   console.log("activeButtonIndex: " + this.activeButtonIndex);
+
     if (direction == CC.LEFT) {
- //       console.log("BUTTONS: LEFT");
+
         if (this.activeButtonIndex == 0) {
             this.activeButtonIndex = 0;
             WC.BUTTON = 0;
-            
+
         } else {
             this.activeButtonIndex -= 1;
-             WC.BUTTON -= 1;
-           //  console.log(this.activeButtonIndex);
+            WC.BUTTON -= 1;
         }
-      
+
     } else if (direction == CC.RIGHT) {
- //       console.log("BUTTONS: RIGHT");
 
         if (this.activeButtonIndex == 2) {
             this.activeButtonIndex = 2;
@@ -44,17 +41,17 @@ ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
             WC.BUTTON += 1;
         }
     }
-//    console.log(this.activeButtonIndex);
+
     this.activateButton(this.buttonGroup.children[this.activeButtonIndex]);
 
 };
 
 ButtonFactory.prototype.activateButton = function(button) {
 
-    for (var i = 0; i < 3; i++) {  
+    for (var i = 0; i < 3; i++) {
         this.buttonGroup.children[i].tint = this.RGBtoHEX(245, 235, 225); //inactive gray
     }
-  
+
     button.tint = this.RGBtoHEX(253, 166, 74); // active orange
 
 };

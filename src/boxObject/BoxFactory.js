@@ -32,7 +32,6 @@ BoxFactory.prototype.create = function() {
         this.addBox(i, 3 * WC.GAME_H / 4 - BC.B_H, 'box1');
         this.addBox(i, WC.GAME_H - BC.B_H, 'box1');
 
-
     }
 
 };
@@ -58,20 +57,15 @@ BoxFactory.prototype.wrapBox = function(box) {
 };
 
 BoxFactory.prototype.checkButtonOverlap = function(box) {
-  // console.log(BUC.B_Y );
 
     if (BUC.B_Y + BUC.B_H/2 - box.y< BC.B_H && BUC.B_Y + BUC.B_H/2 - box.y>= -BC.B_H/3) {
-   // if (BUC.B_Y+BUC.B_H - box.y + BC.B_H < BUC.B_H/2 && BUC.B_Y+BUC.B_H - box.y + BC.B_H > 0) {
- console.log(BUC.B_Y+BUC.B_H - box.y + BC.B_H);
+
         switch (WC.BUTTON) {
 
             case 0:
-                if (box.z >= 0 && box.z <= 5) {
-                    console.log("id = " + box.z); //.Z PROPERTY = OBJECT'S INDEX IN THE GROUP
+                if (box.z >= 0 && box.z <= 5) {//.Z PROPERTY = OBJECT'S INDEX IN THE GROUP
                     box.y = BC.B_STARTY;
                     this.changeRGB(box);
-                    console.log("CATCHED!!");
-
                 }
                 break;
 
@@ -79,7 +73,6 @@ BoxFactory.prototype.checkButtonOverlap = function(box) {
                 if (box.z >= 6 && box.z <= 11) {
                     box.y = BC.B_STARTY;
                     this.changeRGB(box);
-                    console.log("CATCHED!!");
                 }
                 break;
 
@@ -87,7 +80,6 @@ BoxFactory.prototype.checkButtonOverlap = function(box) {
                 if (box.z >= 12 && box.z <= 17) {
                     box.y = BC.B_STARTY;
                     this.changeRGB(box);
-                    console.log("CATCHED!!");
                 }
                 break;
         }
