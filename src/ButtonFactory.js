@@ -18,6 +18,8 @@ ButtonFactory.prototype.create = function() {
     console.log("activeButtonIndex:CREATE " + this.activeButtonIndex);
 };
 
+
+
 ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
 
     if (direction == CC.LEFT) {

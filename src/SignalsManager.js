@@ -18,7 +18,8 @@ SignalsManager.prototype.sendButtonSignal = function() { // LEFT-RIGHT: choose t
 
         this.cursorsManager.direction = CC.LEFT;
         this.buttonSignal.dispatch(this.cursorsManager.direction);
-        this.cursorsManager.directionPause = this.cursorsManager.game.time.now + 150;
+        this.cursorsManager.directionPause = this.cursorsManager.game.time.now + 200;
+        this.cursorsManager.spacebarPause = this.cursorsManager.game.time.now + 250;
 
         return;
     } else if (this.cursorsManager.cursors.right.isDown) {
@@ -26,7 +27,8 @@ SignalsManager.prototype.sendButtonSignal = function() { // LEFT-RIGHT: choose t
 
         this.buttonSignal.dispatch(this.cursorsManager.direction);
 
-        this.cursorsManager.directionPause = this.cursorsManager.game.time.now + 150;
+        this.cursorsManager.directionPause = this.cursorsManager.game.time.now + 200;
+        this.cursorsManager.spacebarPause = this.cursorsManager.game.time.now + 250;
 
         return;
     }
@@ -43,7 +45,8 @@ SignalsManager.prototype.sendBoxSignal = function() { //SPACEBAR - catch the box
     if (this.cursorsManager.spaceKey.isDown) {
 
         this.boxSignal.dispatch();
-        this.cursorsManager.spacebarPause = this.cursorsManager.game.time.now + 150;
+        this.cursorsManager.spacebarPause = this.cursorsManager.game.time.now + 250;
+        this.cursorsManager.directionPause = this.cursorsManager.game.time.now + 200;
 
         return;
     }

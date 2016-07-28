@@ -24,17 +24,73 @@ BoxFactory.prototype.create = function() {
 
     for (var i = BC.B_STARTX; i < WC.GAME_W - BC.B_W; i += WC.GAME_W / 4) {
 
+        var arr = this.generateNewPositionY();
+        /* 
+        
 
+       
+        */
+
+        /*
         this.addBox(i, BC.B_STARTY, 'box1');
         this.addBox(i, 0 - BC.B_H, 'box1');
         this.addBox(i, WC.GAME_H / 4 - BC.B_H, 'box1');
         this.addBox(i, WC.GAME_H / 2 - BC.B_H, 'box1');
         this.addBox(i, 3 * WC.GAME_H / 4 - BC.B_H, 'box1');
         this.addBox(i, WC.GAME_H - BC.B_H, 'box1');
+*/
 
+        this.addBox(i, BC.B_STARTY + arr[0], 'box1');
+        this.addBox(i, BC.B_STARTY + arr[1], 'box1');
+        this.addBox(i, BC.B_STARTY + arr[2], 'box1');
+        this.addBox(i, BC.B_STARTY + arr[3], 'box1');
+        this.addBox(i, BC.B_STARTY + arr[4], 'box1');
+        this.addBox(i, BC.B_STARTY + arr[5], 'box1');
     }
 
 };
+
+BoxFactory.prototype.generateNewPositionY = function() { //
+    var arr = []
+    var isChanged = true;
+    while (arr.length < 6) {
+        var randomnumber = Math.random() * (BC.MAX_Y - BC.MIN_Y + 1) + BC.MIN_Y;
+        // var randomnumber = Math.ceil(Math.random() * 100)
+        var found = false;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == randomnumber) {
+                found = true;
+                break
+            }
+        }
+        if (!found) arr[arr.length] = randomnumber + BC.B_H;
+    }
+    arr.sort();
+    //console.log(arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " +arr[4] );
+
+while(isChanged){
+    for(i = 0; i < arr.length-1; i++){
+    if(arr[i + 1] - arr[i] < 3*BC.B_H/2){
+        arr[i+1]+= 2*BC.B_H;
+        arr.sort();
+        isChanged = true;
+        break;
+    }
+    else isChanged = false;
+}
+
+}
+/*
+for(i = 0; i < arr.length-1; i++){
+    if(arr[i + 1] - arr[i] < 3*BC.B_H/2){
+        arr[i+1]+= 3*BC.B_H/2;
+        arr.sort();
+    }
+}
+console.log("DODANE:" +arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " +arr[4] );
+*/
+    return arr;
+}
 
 //REMOVE CATCHED BOX//
 
@@ -50,7 +106,7 @@ BoxFactory.prototype.catchTheBox = function() {
 BoxFactory.prototype.wrapBox = function(box) {
 
     if (box.y >= 480 + 3 * BC.B_H / 2) {
-        box.y = BC.B_STARTY;
+        box.y = BC.B_STARTY - BC.B_H;
         this.changeRGB(box);
     }
 
@@ -58,12 +114,12 @@ BoxFactory.prototype.wrapBox = function(box) {
 
 BoxFactory.prototype.checkButtonOverlap = function(box) {
 
-    if (BUC.B_Y + BUC.B_H/2 - box.y< BC.B_H && BUC.B_Y + BUC.B_H/2 - box.y>= -BC.B_H/3) {
+    if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 3) {
 
         switch (WC.BUTTON) {
 
             case 0:
-                if (box.z >= 0 && box.z <= 5) {//.Z PROPERTY = OBJECT'S INDEX IN THE GROUP
+                if (box.z >= 0 && box.z <= 5) { //.Z PROPERTY = OBJECT'S INDEX IN THE GROUP
                     box.y = BC.B_STARTY;
                     this.changeRGB(box);
                 }
@@ -76,7 +132,7 @@ BoxFactory.prototype.checkButtonOverlap = function(box) {
                 }
                 break;
 
-            case 2:           
+            case 2:
                 if (box.z >= 12 && box.z <= 17) {
                     box.y = BC.B_STARTY;
                     this.changeRGB(box);
