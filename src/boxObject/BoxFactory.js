@@ -58,9 +58,11 @@ BoxFactory.prototype.wrapBox = function(box) {
 };
 
 BoxFactory.prototype.checkButtonOverlap = function(box) {
+  // console.log(BUC.B_Y );
 
-    if (375 - box.y < BC.B_H / 4) {
-
+    if (BUC.B_Y + BUC.B_H/2 - box.y< BC.B_H && BUC.B_Y + BUC.B_H/2 - box.y>= -BC.B_H/3) {
+   // if (BUC.B_Y+BUC.B_H - box.y + BC.B_H < BUC.B_H/2 && BUC.B_Y+BUC.B_H - box.y + BC.B_H > 0) {
+ console.log(BUC.B_Y+BUC.B_H - box.y + BC.B_H);
         switch (WC.BUTTON) {
 
             case 0:
