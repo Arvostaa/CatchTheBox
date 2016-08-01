@@ -10,7 +10,7 @@ ButtonFactory = function(game) {
 };
 
 ButtonFactory.prototype.create = function() {
-    console.log("CREESAATE");
+  //  console.log("CREESAATE");
     this.buttonGroup.create(BC.B_STARTX - BC.B_W / 4 + 7, 375, 'button');
     this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 4 - BC.B_W / 4 + 8, 375, 'button');
     this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 2 - BC.B_W / 4 + 8, 375, 'button');
@@ -18,9 +18,11 @@ ButtonFactory.prototype.create = function() {
     console.log("activeButtonIndex:CREATE " + this.activeButtonIndex);
 };
 
+ButtonFactory.prototype.test = function(){
+    console.log("noelo");
+};
 
-
-ButtonFactory.prototype.setActiveButtonIndex = function(direction) {
+ButtonFactory.prototype.onKeyDown = function(direction) {
 
     if (direction == CC.LEFT) {
 

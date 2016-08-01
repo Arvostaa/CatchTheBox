@@ -21,23 +21,21 @@ function startBoxRGB() {
 
         game.stage.backgroundColor = 'rgb(246, 246, 241)';
         game.add.tileSprite(0, 0, 640, 480, 'background');
-        buttons = new ButtonFactory(game);
+        
+        buttonFactory = new ButtonFactory(game);
         boxFactory = new BoxFactory(game);
-       // cursorsManager = new CursorsManager(game, boxFactory, buttons);
-       // cursorsManager.buttonSignal.add(buttons.setActiveButtonIndex, buttons);
-       signalsManager = new SignalsManager(game);
-       signalsManager.buttonSignal.add(buttons.setActiveButtonIndex,buttons);
-       signalsManager.boxSignal.add(boxFactory.catchTheBox, boxFactory);
-
+        
+        cursorsManager = new CursorsManager(game);
+       
+        cursorsManager.keySignal.add(buttonFactory.onKeyDown, buttonFactory);
+        cursorsManager.keySignal.add(boxFactory.onKeyDown, boxFactory);
+      
     }
 
     function update() {
-      
-          signalsManager.sendButtonSignal();
-          signalsManager.sendBoxSignal();
-          boxFactory.updateBoxes();
-     //   buttons.cursors.checkCursor();
 
+        cursorsManager.checkKeys();
+        boxFactory.updateBoxes();
 
     }
 

@@ -2,15 +2,11 @@ BoxFactory = function(game) {
 
     this.boxGroup = game.add.physicsGroup();
     this.game = game;
-
-    this.boxSignal = new Phaser.Signal(); //create s
-
     this.create();
     this.boxGroup.setAll('body.immovable', false);
     this.boxGroup.setAll('body.velocity.y', BC.B_SPEED);
 
 };
-
 
 BoxFactory.prototype.addBox = function(posX, posY, name) {
 
@@ -19,26 +15,11 @@ BoxFactory.prototype.addBox = function(posX, posY, name) {
 
 };
 
-
 BoxFactory.prototype.create = function() {
 
     for (var i = BC.B_STARTX; i < WC.GAME_W - BC.B_W; i += WC.GAME_W / 4) {
 
         var arr = this.generateNewPositionY();
-        /* 
-        
-
-       
-        */
-
-        /*
-        this.addBox(i, BC.B_STARTY, 'box1');
-        this.addBox(i, 0 - BC.B_H, 'box1');
-        this.addBox(i, WC.GAME_H / 4 - BC.B_H, 'box1');
-        this.addBox(i, WC.GAME_H / 2 - BC.B_H, 'box1');
-        this.addBox(i, 3 * WC.GAME_H / 4 - BC.B_H, 'box1');
-        this.addBox(i, WC.GAME_H - BC.B_H, 'box1');
-*/
 
         this.addBox(i, BC.B_STARTY + arr[0], 'box1');
         this.addBox(i, BC.B_STARTY + arr[1], 'box1');
@@ -68,74 +49,128 @@ BoxFactory.prototype.generateNewPositionY = function() { //
     arr.sort();
     //console.log(arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " +arr[4] );
 
-while(isChanged){
-    for(i = 0; i < arr.length-1; i++){
-    if(arr[i + 1] - arr[i] < 3*BC.B_H/2){
-        arr[i+1]+= 2*BC.B_H;
-        arr.sort();
-        isChanged = true;
-        break;
-    }
-    else isChanged = false;
-}
+    while (isChanged) {
+        for (i = 0; i < arr.length - 1; i++) {
+            if (arr[i + 1] - arr[i] < 3 * BC.B_H / 2) {
+                arr[i + 1] += 2 * BC.B_H;
+                arr.sort();
+                isChanged = true;
+                break;
+            } else isChanged = false;
+        }
 
-}
-/*
-for(i = 0; i < arr.length-1; i++){
-    if(arr[i + 1] - arr[i] < 3*BC.B_H/2){
-        arr[i+1]+= 3*BC.B_H/2;
-        arr.sort();
     }
-}
-console.log("DODANE:" +arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " +arr[4] );
-*/
+
     return arr;
 }
 
 //REMOVE CATCHED BOX//
 
-BoxFactory.prototype.catchTheBox = function() {
+BoxFactory.prototype.onKeyDown = function(direction) {
 
-    console.log("CATCH THE BOX");
+if(direction == CC.SPACEBAR){
+
     this.boxGroup.forEach(this.checkButtonOverlap, this);
+
+}
 
 };
 
 //MOVEMENT//
 
-BoxFactory.prototype.wrapBox = function(box) {
+BoxFactory.prototype.waitForWrap = function(box) {
 
     if (box.y >= 480 + 3 * BC.B_H / 2) {
-        box.y = BC.B_STARTY - BC.B_H;
-        this.changeRGB(box);
+
+        this.setWrapTimer(box);
+
+    }
+};
+
+BoxFactory.prototype.setWrapTimer = function(box) {
+
+
+    box.body.velocity.y = 0;
+
+    if (this.doBoxesCollide(box)) {
+
+        this.setWrapTimer(box);
+    } else
+
+        this.game.time.events.add(this.game.rnd.integerInRange(250, 750), this.wrapTheBox, this, box);
+};
+
+
+
+BoxFactory.prototype.wrapTheBox = function(box) {
+
+    box.y = BC.B_STARTY - BC.B_H;
+    this.changeRGB(box);
+    if(!this.doBoxesCollide(box)){
+         box.body.velocity.y = BC.B_SPEED;
+    }
+    else this.setWrapTimer(box);
+
+};
+
+BoxFactory.prototype.doBoxesCollide = function(box) {
+    var index = box.z;
+
+    switch (index) {
+        case 0:
+            index = 5;
+            break;
+        case 5:
+            index = 0;
+            break;
+        case 6:
+            index = 11;
+            break;
+        case 11:
+            index = 6;
+            break;
+        case 12:
+            index = 17;
+            break;
+        case 17:
+            index = 12;
+            break;
+        default:
+            index = box.z;
+            break;
     }
 
+    if (this.boxGroup.children[index].posY - box.posY < 3 * BC.B_H / 2) {
+        return true;
+    } else
+
+        return false;
 };
 
 BoxFactory.prototype.checkButtonOverlap = function(box) {
 
-    if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 3) {
+    if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 3) { //if box overlaps active button
 
-        switch (WC.BUTTON) {
+        switch (WC.BUTTON) { // chceck active button
 
             case 0:
                 if (box.z >= 0 && box.z <= 5) { //.Z PROPERTY = OBJECT'S INDEX IN THE GROUP
-                    box.y = BC.B_STARTY;
-                    this.changeRGB(box);
+                    this.wrapTheBox(box); //wrap the box 
+                    this.setWrapTimer(box); 
                 }
                 break;
 
             case 1:
                 if (box.z >= 6 && box.z <= 11) {
-                    box.y = BC.B_STARTY;
-                    this.changeRGB(box);
+                    this.wrapTheBox(box);
+                    this.setWrapTimer(box);
                 }
                 break;
 
             case 2:
                 if (box.z >= 12 && box.z <= 17) {
-                    box.y = BC.B_STARTY;
-                    this.changeRGB(box);
+                    this.wrapTheBox(box);
+                    this.setWrapTimer(box);
                 }
                 break;
         }
@@ -143,7 +178,7 @@ BoxFactory.prototype.checkButtonOverlap = function(box) {
 };
 
 BoxFactory.prototype.updateBoxes = function() {
-    this.boxGroup.forEach(this.wrapBox, this);
+    this.boxGroup.forEach(this.waitForWrap, this);
 };
 
 //COLORS//
