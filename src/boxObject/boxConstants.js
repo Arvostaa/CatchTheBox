@@ -1,6 +1,6 @@
 boxConstants = {
 B_NAME: 'box1',
-B_SPEED: 150,
+B_SPEED: 350,
 B_W: 50,
 B_H: 50,
 B_STARTY:0,

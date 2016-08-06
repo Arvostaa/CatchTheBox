@@ -66,6 +66,7 @@ ButtonFactory.prototype.RGBtoHEX = function(r, g, b) {
 
 
 ButtonFactory.prototype.updateButtons = function() {
-    this.cursors.checkCursor();
+  
+   this.cursors.checkCursor();
 
 };

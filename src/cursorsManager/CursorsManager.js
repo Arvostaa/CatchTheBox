@@ -5,7 +5,7 @@ CursorsManager = function(game) {
     this.game = game;
     this.direction;
     this.keySignal = new Phaser.Signal();
-   
+
     var directionPause = 0;
     var spacebarPause = 0;
 
@@ -27,26 +27,29 @@ CursorsManager.prototype.checkKeys = function() {
 
         this.direction = CC.LEFT;
         this.keySignal.dispatch(this.direction);
-        this.directionPause = this.game.time.now + 200;
-        this.spacebarPause = this.game.time.now + 250;
+
+        this.spacebarPause = this.game.time.now + 200;
+        this.directionPause = this.game.time.now + 1;
 
         return;
-   
+
     } else if (this.cursors.right.isDown) { //onkeyRight
-        
+
         this.direction = CC.RIGHT;
         this.keySignal.dispatch(this.direction);
-        this.directionPause = this.game.time.now + 200;
-        this.spacebarPause = this.game.time.now + 250;
+
+        this.spacebarPause = this.game.time.now + 200;
+        this.directionPause = this.game.time.now + 1;
 
         return;
-    
+
     } else if (this.spaceKey.isDown) { //onSpacebarDown
 
         this.direction = CC.SPACEBAR;
         this.keySignal.dispatch(this.direction);
-        this.spacebarPause = this.game.time.now + 250;
-        this.directionPause = this.game.time.now + 200;
+        
+        this.spacebarPause = this.game.time.now + 200;
+      //  this.directionPause = this.game.time.now + 5;
 
         return;
     }
