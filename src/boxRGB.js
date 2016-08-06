@@ -12,7 +12,7 @@ function startBoxRGB() {
     var signalsManager;
 
     function preload() {
-        game.load.image("background", "assets/background.png");
+
         assetsManager = new AssetsManager(game);
 
     }
@@ -20,16 +20,22 @@ function startBoxRGB() {
     function create() {
 
         game.stage.backgroundColor = 'rgb(246, 246, 241)';
-        game.add.tileSprite(0, 0, 640, 480, 'background');
-        
+
+      
+
+
+game.add.tileSprite(0, 240, 640, 480, 'inputBackground');
         buttonFactory = new ButtonFactory(game);
         boxFactory = new BoxFactory(game);
-        
+
         cursorsManager = new CursorsManager(game);
-       
+
         cursorsManager.keySignal.add(buttonFactory.onKeyDown, buttonFactory);
         cursorsManager.keySignal.add(boxFactory.onKeyDown, boxFactory);
-      
+
+          
+        game.add.tileSprite(0, 0, 640, 240, 'riddleBackground');
+
     }
 
     function update() {

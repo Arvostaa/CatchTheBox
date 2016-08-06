@@ -11,9 +11,9 @@ ButtonFactory = function(game) {
 
 ButtonFactory.prototype.create = function() {
   //  console.log("CREESAATE");
-    this.buttonGroup.create(BC.B_STARTX - BC.B_W / 4 + 7, 375, 'button');
-    this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 4 - BC.B_W / 4 + 8, 375, 'button');
-    this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 2 - BC.B_W / 4 + 8, 375, 'button');
+    this.buttonGroup.create(BC.B_STARTX - BC.B_W / 4 + 7, BUC.B_Y, 'button');
+    this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 4 - BC.B_W / 4 + 8, BUC.B_Y, 'button');
+    this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 2 - BC.B_W / 4 + 8, BUC.B_Y, 'button');
     this.activeButtonIndex = 0;
     console.log("activeButtonIndex:CREATE " + this.activeButtonIndex);
 };

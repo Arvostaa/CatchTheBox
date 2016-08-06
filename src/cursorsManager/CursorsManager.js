@@ -28,8 +28,8 @@ CursorsManager.prototype.checkKeys = function() {
         this.direction = CC.LEFT;
         this.keySignal.dispatch(this.direction);
 
-        this.spacebarPause = this.game.time.now + 200;
-        this.directionPause = this.game.time.now + 1;
+        this.spacebarPause = this.game.time.now + 100;
+        this.directionPause = this.game.time.now + 150;
 
         return;
 
@@ -38,8 +38,8 @@ CursorsManager.prototype.checkKeys = function() {
         this.direction = CC.RIGHT;
         this.keySignal.dispatch(this.direction);
 
-        this.spacebarPause = this.game.time.now + 200;
-        this.directionPause = this.game.time.now + 1;
+        this.spacebarPause = this.game.time.now + 100;
+        this.directionPause = this.game.time.now + 150;
 
         return;
 
@@ -47,9 +47,9 @@ CursorsManager.prototype.checkKeys = function() {
 
         this.direction = CC.SPACEBAR;
         this.keySignal.dispatch(this.direction);
-        
-        this.spacebarPause = this.game.time.now + 200;
-      //  this.directionPause = this.game.time.now + 5;
+
+        this.spacebarPause = this.game.time.now + 100;
+       // this.directionPause = this.game.time.now + 145;
 
         return;
     }

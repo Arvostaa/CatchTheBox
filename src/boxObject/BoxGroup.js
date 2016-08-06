@@ -28,10 +28,9 @@ BoxGroup.prototype.addBox = function(posX, posY, name) {
 BoxGroup.prototype.create = function() {
 
     for (var i = 0; i < 6; i++) {
-
         this.addBox(this.posX, BC.B_STARTY, 'box1');
-
     }
+
 };
 
 BoxGroup.prototype.startTheBoxes = function() {
@@ -66,7 +65,7 @@ BoxGroup.prototype.checkOverlap = function() {
 
 BoxGroup.prototype.checkButtonOverlap = function(box) {
 
-    if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 3) { //if box overlaps active button
+    if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 5) { //if box overlaps active button
         if (this.boxGroup.total <= 5)
             this.addBox(this.posX, BC.B_STARTY, 'box1');
         this.removeTheBox(box);
@@ -84,7 +83,7 @@ BoxGroup.prototype.checkPosition = function() {
 
 BoxGroup.prototype.checkEnteredBounds = function(box) {
     //console.log(box);
-    if (box.y >= 480 + 3 * BC.B_H / 2) {
+    if (box.y >= WC.GAME_H + 3 * BC.B_H / 2) {
 
         this.removeTheBox(box);
         this.addBox(this.posX, BC.B_STARTY, 'box1');

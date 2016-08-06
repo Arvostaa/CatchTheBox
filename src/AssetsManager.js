@@ -1,7 +1,9 @@
-function AssetsManager(game){
-this.game = game;
-this.game.load.image('box1', 'assets/box1.png');
-this.game.load.image('button', 'assets/button.png');
+function AssetsManager(game) {
+    this.game = game;
+    this.game.load.image("inputBackground", "assets/inputBackground.png");
+    this.game.load.image("riddleBackground", "assets/riddleBackground.png");
+    this.game.load.image('box1', 'assets/box1.png');
+    this.game.load.image('button', 'assets/button.png');
 
 
 };
