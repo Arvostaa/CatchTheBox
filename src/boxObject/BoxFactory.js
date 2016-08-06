@@ -6,6 +6,13 @@ BoxFactory = function(game) {
     this.boxGroup2 = new BoxGroup(game, BC.B_STARTX + WC.GAME_W / 4, 2);
     this.boxGroup3 = new BoxGroup(game, BC.B_STARTX + WC.GAME_W / 2, 3);
 
+    this.boxGroup1.catchedBoxSignal.add(this.onCatchedBox, this);
+    this.boxGroup2.catchedBoxSignal.add(this.onCatchedBox, this);
+    this.boxGroup3.catchedBoxSignal.add(this.onCatchedBox, this);
+
+    this.color;
+    this.colorSignal = new Phaser.Signal();
+
 };
 
 //REMOVE CATCHED BOX//
@@ -32,11 +39,37 @@ BoxFactory.prototype.onKeyDown = function(direction) {
 
 BoxFactory.prototype.updateBoxes = function() {
 
-   
+
     this.boxGroup1.checkPosition();
     this.boxGroup2.checkPosition();
     this.boxGroup3.checkPosition();
-    
+
+};
+
+BoxFactory.prototype.onCatchedBox = function(color) {
+
+    switch (color) {
+
+        case BC.BLUE:
+            this.color = BC.BLUE;
+          // console.log("BBBBLLLUE");
+
+            break;
+
+        case BC.RED:
+            this.color = BC.RED;
+            break;
+
+        case BC.YELLOW:
+            this.color = BC.YELLOW;
+            break;
+
+        case BC.GREEN:
+            this.color = BC.GREEN;
+            break;
+    }
+
+    this.colorSignal.dispatch(this.color);
 };
 
 

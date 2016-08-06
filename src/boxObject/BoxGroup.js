@@ -2,7 +2,7 @@ BoxGroup = function(game, x, boxId) {
 
     this.boxGroup = game.add.physicsGroup();
     this.boxGroup.enableBody = true;
-    
+
     this.posX = x;
     this.activeBoxId = 0;
 
@@ -12,9 +12,14 @@ BoxGroup = function(game, x, boxId) {
     this.boxGroup.setAll('body.immovable', false);
     this.boxGroup.setAll('body.velocity.y', 0);
 
+    this.catchedBoxSignal = new Phaser.Signal();
+
+
     this.boxTimer = this.game.time.create(false);
     this.boxTimer.start();
     this.startTheBoxes();
+
+    this.color;
 
 };
 
@@ -68,7 +73,10 @@ BoxGroup.prototype.checkButtonOverlap = function(box) {
     if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 5) { //if box overlaps active button
         if (this.boxGroup.total <= 5)
             this.addBox(this.posX, BC.B_STARTY, 'box1');
+      
+        this.getColor(box);
         this.removeTheBox(box);
+        this.catchedBoxSignal.dispatch(this.color); //******SEND SIGNAL*****//
     }
 };
 
@@ -76,6 +84,14 @@ BoxGroup.prototype.removeTheBox = function(box) {
     this.boxGroup.remove(box);
     this.setNextActiveIndex();
 };
+
+BoxGroup.prototype.getColor = function(box) {
+    this.color = box.tint;
+    console.log(this.color);
+}
+
+
+
 
 BoxGroup.prototype.checkPosition = function() {
     this.boxGroup.forEach(this.checkEnteredBounds, this);
