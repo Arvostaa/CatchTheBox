@@ -1,6 +1,6 @@
 function startBoxRGB() {
 
-    var game = new Phaser.Game(WC.GAME_W, WC.GAME_H, Phaser.CANVAS, 'game', {
+    var game = new Phaser.Game(WC.GAME_W, WC.GAME_H, Phaser.WEBGL, 'game', {
         preload: preload,
         create: create,
         update: update
@@ -11,6 +11,7 @@ function startBoxRGB() {
     var boxFactory;
     var signalsManager;
     var stage0;
+    var animationManager;
 
     function preload() {
 
@@ -29,12 +30,17 @@ function startBoxRGB() {
         cursorsManager = new CursorsManager(game);
         cursorsManager.keySignal.add(buttonFactory.onKeyDown, buttonFactory);
         cursorsManager.keySignal.add(boxFactory.onKeyDown, boxFactory);
-
+        animationManager = new AnimationManager(game);
+       
         /*RIDDLE PART*/
 
         game.add.tileSprite(0, 0, 640, 240, 'riddleBackground');
         stage0 = new Stage0(game);
         boxFactory.colorSignal.add(stage0.onColorPicked, stage0);
+       
+
+        stage0.fadeSignal.add(animationManager.fadeAndRecolor, animationManager);
+        buttonFactory.fadeSignal.add(animationManager.fade, animationManager);
 
 
     }

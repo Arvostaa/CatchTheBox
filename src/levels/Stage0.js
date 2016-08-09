@@ -18,6 +18,10 @@ Stage0 = function(game) {
     this.pickedColorText = game.add.text(250, 10, "", style);
     // text.setShadow(0, 0, 'rgba(191, 24, 80, 0.3)', 15);
     //  text.anchor.set(0.5);
+ 	this.fadeSignal = new Phaser.Signal();
+
+
+
 
 };
 
@@ -35,7 +39,7 @@ Stage0.prototype.onColorPicked = function(color) {
             case BC.BLUE:
 
                 this.pickedColor = BC.BLUE;
-               // this.pickedColorText.text = "BLUE!";
+                // this.pickedColorText.text = "BLUE!";
                 this.catchedCounter++;
                 this.catchedText.text = "Catched: " + this.catchedCounter;
                 // console.log("BBBBLLLUE");
@@ -44,7 +48,7 @@ Stage0.prototype.onColorPicked = function(color) {
 
             case BC.RED:
                 this.pickedColor = BC.RED;
-               // this.pickedColorText.text = "RED!";
+                // this.pickedColorText.text = "RED!";
                 this.catchedCounter++;
                 this.catchedText.text = "Catched: " + this.catchedCounter;
                 break;
@@ -63,8 +67,9 @@ Stage0.prototype.onColorPicked = function(color) {
                 this.catchedText.text = "Catched: " + this.catchedCounter;
                 break;
         }
-        this.changeRGB(this.colorBox);
-    }
+
+this.fadeSignal.dispatch(this.colorBox);
+}
 };
 
 Stage0.prototype.changeRGB = function(box) {

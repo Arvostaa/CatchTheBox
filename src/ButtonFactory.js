@@ -3,14 +3,16 @@ ButtonFactory = function(game) {
     this.buttonGroup = game.add.physicsGroup();
     this.game = game;
     this.create();
-    this.activateButton(this.buttonGroup.children[0]);
+    this.activateButton();
     this.buttonGroup.setAll('body.immovable', true);
     var activeButtonIndex = 0;
+
+    this.fadeSignal = new Phaser.Signal();
 
 };
 
 ButtonFactory.prototype.create = function() {
-  //  console.log("CREESAATE");
+    //  console.log("CREESAATE");
     this.buttonGroup.create(BC.B_STARTX - BC.B_W / 4 + 7, BUC.B_Y, 'button');
     this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 4 - BC.B_W / 4 + 8, BUC.B_Y, 'button');
     this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 2 - BC.B_W / 4 + 8, BUC.B_Y, 'button');
@@ -18,7 +20,7 @@ ButtonFactory.prototype.create = function() {
     console.log("activeButtonIndex:CREATE " + this.activeButtonIndex);
 };
 
-ButtonFactory.prototype.test = function(){
+ButtonFactory.prototype.test = function() {
     console.log("noelo");
 };
 
@@ -45,18 +47,19 @@ ButtonFactory.prototype.onKeyDown = function(direction) {
             WC.BUTTON += 1;
         }
     }
-
     this.activateButton(this.buttonGroup.children[this.activeButtonIndex]);
-
+    this.fadeSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex]);
+ 
+   // this.fadeSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex]);
 };
 
-ButtonFactory.prototype.activateButton = function(button) {
+ButtonFactory.prototype.activateButton = function() {
 
     for (var i = 0; i < 3; i++) {
-        this.buttonGroup.children[i].tint = this.RGBtoHEX(245, 235, 225); //inactive gray
+        this.buttonGroup.children[i].tint = '0xebecda'; //inactive gray
     }
 
-    button.tint = this.RGBtoHEX(253, 166, 74); // active orange
+   // button.tint = this.RGBtoHEX(253, 166, 74); // active orange
 
 };
 
@@ -66,7 +69,7 @@ ButtonFactory.prototype.RGBtoHEX = function(r, g, b) {
 
 
 ButtonFactory.prototype.updateButtons = function() {
-  
-   this.cursors.checkCursor();
+
+    this.cursors.checkCursor();
 
 };
