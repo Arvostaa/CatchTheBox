@@ -7,29 +7,27 @@
     <script src="phaser.min.js"></script>
     <script src="src/worldConstants.js"></script>
     <script src="src/boxRGB.js"></script>
+    <script src="src/MainGame.js"></script>
     <script src="src/AssetsManager.js"></script>
     <script src="src/boxObject/BoxFactory.js"></script>
     <script src="src/boxObject/BoxGroup.js"></script>
     <script src="src/boxObject/boxConstants.js"></script>
     <script src="src/boxObject/buttonConstants.js"></script>
     <script src="src/ButtonFactory.js"></script>
-     <script src="src/AnimationManager.js"></script>
+    <script src="src/AnimationManager.js"></script>
     <script src="src/cursorsManager/CursorsManager.js"></script>
     <script src="src/cursorsManager/cursorsConstants.js"></script>
     <script src="src/levels/Stage0.js"></script>
+    <script src="src/levels/LevelMenu.js"></script>
 
-    <style type="text/css">
-        body {
-            margin: 0;
-        }
+    <style> 
+    @font-face {  font-family: 'rubik';  src: url('rubik-bold.ttf') format('truetype');}body {    font-family: 'rubik';}.fontLoader {    position: absolute;    left: -1000px;} 
     </style>
 </head>
 
 <body>
 
-    <div id="game"></div>
-    <div id="orientation"></div>
-
+    <div style="font-family:rubik; position:absolute; "id="game"></div>
     <script type="text/javascript">
         window.onload = function () {
             startBoxRGB();

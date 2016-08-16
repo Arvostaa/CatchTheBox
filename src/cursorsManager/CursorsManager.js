@@ -2,6 +2,7 @@ CursorsManager = function(game) {
 
     this.cursors = game.input.keyboard.createCursorKeys(); //OGARNIJ KEYBOARD.DURATION
     this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.escapeKey = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
     this.game = game;
     this.direction;
     this.keySignal = new Phaser.Signal();
@@ -10,7 +11,6 @@ CursorsManager = function(game) {
     var spacebarPause = 0;
 
 };
-
 
 CursorsManager.prototype.checkKeys = function() {
 
