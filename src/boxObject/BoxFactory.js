@@ -8,7 +8,7 @@ BoxFactory = function(game) {
 
     this.boxGroup1.catchedBoxSignal.add(this.onCatchedBox, this);
     this.boxGroup2.catchedBoxSignal.add(this.onCatchedBox, this);
-    this.boxGroup3.catchedBoxSignal.add(this.onCatchedBox, this);
+    this.boxGroup3.catchedBoxSignal.add(this.onCatchedBox, this); 
 
     this.color;
     this.colorSignal = new Phaser.Signal();
@@ -23,7 +23,7 @@ BoxFactory.prototype.onKeyDown = function(direction) {
         switch (WC.BUTTON) {
 
             case 0:
-                this.boxGroup1.checkOverlap();
+                this.boxGroup1.checkOverlap(); 
                 break;
             case 1:
                 this.boxGroup2.checkOverlap();

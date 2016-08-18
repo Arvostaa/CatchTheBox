@@ -1,5 +1,6 @@
 var LEVEL_DATA = null;
 var assetsManager;
+var animationManager;
 
 LevelMenu = function(game) {
     // define needed variables for mygame.LevelSelect
@@ -11,19 +12,25 @@ LevelMenu = function(game) {
 LevelMenu.prototype = {
 
     preload: function() {
-        this.game.load.spritesheet('levelselecticons', 'levelselecticons.png', 95, 96);
+        assetsManager = new AssetsManager(this.game);
         this.initProgressData();
 
     },
 
     create: function() {
+        console.log("LLLLLLLLLLLLL");
         this.game.stage.backgroundColor = '#EDEDED';
         var mainMenuText = this.game.add.text(200, 60, "SELECT A LEVEL");
         mainMenuText.font = 'Rubik';
         mainMenuText.fill = '#7C6F6E';
 
+
+        animationManager = new AnimationManager(this.game);
+        this.game.world.setBounds(0,0,640,220);
+
         this.createLevelIcons();
         this.animateLevelIcons();
+       
     },
 
     update: function() {
@@ -35,7 +42,6 @@ LevelMenu.prototype = {
     },
 
     initProgressData: function() {
-        assetsManager = new AssetsManager(this.game);
 
         if (!LEVEL_DATA) {
 
@@ -180,9 +186,9 @@ LevelMenu.prototype = {
             }, 100, Phaser.Easing.Linear.None).start();
 
             // it's a little tricky to pass selected levelnr to callback function, but this works:
-          
-                this.onLevelSelected(levelnr);
-            
+
+            this.onLevelSelected(levelnr);
+
         };
     },
 
@@ -200,12 +206,15 @@ LevelMenu.prototype = {
                 y: y - 600
             }, 500, Phaser.Easing.Back.Out, true, (i * 40));
         };
+
+
     },
 
     onLevelSelected: function(levelnr) {
         // pass levelnr variable to 'Game' state
-        this.game.state.states['game']._levelNumber = levelnr;
-
-        this.state.start('game');
+        var stagename = 'stage'+ + levelnr;
+       console.log("STAGENAME = " + stagename);
+       // this.game.state.states[stagename]._levelNumber = levelnr;
+        this.game.state.start(stagename, true, false, this.game, animationManager);
     }
 };
