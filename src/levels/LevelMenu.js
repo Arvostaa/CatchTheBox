@@ -212,7 +212,7 @@ LevelMenu.prototype = {
 
     onLevelSelected: function(levelnr) {
         // pass levelnr variable to 'Game' state
-        var stagename = 'stage'+ + levelnr;
+        var stagename = 'stage'+ (levelnr-1);
        console.log("STAGENAME = " + stagename);
        // this.game.state.states[stagename]._levelNumber = levelnr;
         this.game.state.start(stagename, true, false, this.game, animationManager);

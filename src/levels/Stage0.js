@@ -7,7 +7,7 @@ Stage0.prototype = {
     init: function(game, animationManager) {
         this.game = game;
         this.animationManager = animationManager;
-        this._levelNumber = 1;
+        this._levelNumber = 0;
 
     },
     preload: function() {
@@ -111,8 +111,7 @@ Stage0.prototype = {
     },
 
      playerWins: function() {
-        
-       
+             
         // set nr of stars for this level
         LEVEL_DATA[this._levelNumber - 1] = this._levelNumber;
 

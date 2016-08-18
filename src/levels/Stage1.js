@@ -18,7 +18,7 @@
 
      preload: function() {
 
-         this._levelNumber = 2;
+         this._levelNumber = 1;
 
          this.game.load.image('circle', 'assets/circleStage1.png');
          this.game.load.image('box', 'assets/boxStage1.png');
