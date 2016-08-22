@@ -23,13 +23,6 @@ BoxGroup = function(game, x, boxId) {
 
 };
 
-BoxGroup.prototype.addBox = function(posX, posY, name) {
-    //  console.log(this.boxGroup);
-    var newBox = this.boxGroup.create(posX, posY, name);
-    this.changeRGB(newBox);
-
-};
-
 BoxGroup.prototype.create = function() {
 
     for (var i = 0; i < 6; i++) {
@@ -38,12 +31,16 @@ BoxGroup.prototype.create = function() {
 
 };
 
+BoxGroup.prototype.addBox = function(posX, posY, name) {
+    //  console.log(this.boxGroup);
+    var newBox = this.boxGroup.create(posX, posY, name);
+    this.changeRGB(newBox);
+
+};
+
 BoxGroup.prototype.startTheBoxes = function() {
 
     this.runTheBox();
-
-    //console.log(this.activeBoxId);
-
     this.boxTimer.add(this.game.rnd.integerInRange(250, 1250), this.startTheBoxes, this);
 
 };
@@ -73,25 +70,35 @@ BoxGroup.prototype.checkButtonOverlap = function(box) {
     if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 5) { //if box overlaps active button
         if (this.boxGroup.total <= 5)
             this.addBox(this.posX, BC.B_STARTY, 'box1');
-      
+
         this.getColor(box);
-        this.removeTheBox(box);
-        this.catchedBoxSignal.dispatch(this.color); //******SEND SIGNAL*****//
-    }
+
+       box.anchor.setTo(0.2, 1);
+
+        this.game.add.tween(box).to({
+            alpha: 0
+        }, 250, Phaser.Easing.Linear.None, true);
+
+        this.game.add.tween(box.scale).to({
+        x: 2,
+        y: 2
+    }, 250, Phaser.Easing.Linear.None, true);
+
+    this.game.time.events.add(252, this.removeTheBox, this, box);
+    // this.removeTheBox(box);
+    this.catchedBoxSignal.dispatch(this.color); //******SEND SIGNAL*****//
+}
 };
 
 BoxGroup.prototype.removeTheBox = function(box) {
+
     this.boxGroup.remove(box);
     this.setNextActiveIndex();
 };
 
 BoxGroup.prototype.getColor = function(box) {
     this.color = box.tint;
-    console.log(this.color);
 }
-
-
-
 
 BoxGroup.prototype.checkPosition = function() {
     this.boxGroup.forEach(this.checkEnteredBounds, this);

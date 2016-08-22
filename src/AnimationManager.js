@@ -29,33 +29,30 @@ AnimationManager.prototype.fadeAndRecolor = function(object) {
 };
 
 AnimationManager.prototype.fadeIn = function(object) {
-//this.tweenTint(object, 0xf5ebe1,0xfda64a, 200);
-//this.tweenTint(object, 0xF5EBE1,0xFDA64A, 200);
-//tweenTint(sprite, 0xff0000, 0x0000ff, 2000); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
-//this.tweenTint(object, '0xf11313','0x132ef1',500); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
-this.tweenTint(object, '0xfad8d1','0xfb3968',250); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
+this.tweenTint(object, '0x62273e','0xfb3968',150); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
 };
 
 AnimationManager.prototype.fadeOut = function(object) {
-//this.tweenTint(object, 0xf5ebe1,0xfda64a, 200);
-//this.tweenTint(object, 0xF5EBE1,0xFDA64A, 200);
-//tweenTint(sprite, 0xff0000, 0x0000ff, 2000); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
-//this.tweenTint(object, '0xf11313','0x132ef1',500); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
-this.tweenTint(object,'0xfb3968','0xfad8d1',250); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
+this.tweenTint(object,'0xfb3968','0x62273e',150); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
 };
 
 AnimationManager.prototype.fadeCatch = function(object) {
-//this.tweenTint(object, 0xf5ebe1,0xfda64a, 200);
-//this.tweenTint(object, 0xF5EBE1,0xFDA64A, 200);
-//tweenTint(sprite, 0xff0000, 0x0000ff, 2000); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
-//this.tweenTint(object, '0xf11313','0x132ef1',500); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 this.tweenTint(object,'0xfb3968','0xffab3d',100); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
-//this.tweenTint(object,'0xffab3d','0xfb3968',100);
+
+};
+
+AnimationManager.prototype.erlargeAndFade = function(object){
+
+this.tweenTint(object,'0xf50039','0xF0FDFF',250);
+
+this.game.add.tween(object).to({ // fade out in 50ms 
+            alpha: 0
+        }, 250, Phaser.Easing.Linear.None, true);
 
 };
 

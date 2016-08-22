@@ -28,7 +28,7 @@ CursorsManager.prototype.checkKeys = function() {
         this.direction = CC.LEFT;
         this.keySignal.dispatch(this.direction);
 
-        this.spacebarPause = this.game.time.now + 100;
+      //  this.spacebarPause = this.game.time.now + 100;
         this.directionPause = this.game.time.now + 200;
 
         return;
@@ -38,7 +38,7 @@ CursorsManager.prototype.checkKeys = function() {
         this.direction = CC.RIGHT;
         this.keySignal.dispatch(this.direction);
 
-        this.spacebarPause = this.game.time.now + 100;
+     //   this.spacebarPause = this.game.time.now + 100;
         this.directionPause = this.game.time.now + 200;
 
         return;

@@ -4,13 +4,6 @@ InputCreator = function(game, animationManager) {
     this._levelNumber = 1;
     this.animationManager = animationManager;
 
-   // var buttons;
-   // var boxFactory;
-   // var cursorsManager;
-
-    //  var stage0;
-    //  var stage1;
-
     this.createTheInput();
     this.createAnimation();
 
@@ -19,6 +12,7 @@ InputCreator = function(game, animationManager) {
 InputCreator.prototype = {
 
     createTheInput: function() {
+        WC.BUTTON = 0;
 
         this.game.stage.backgroundColor = 'rgb(246, 246, 241)';
 

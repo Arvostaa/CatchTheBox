@@ -49,6 +49,8 @@ Stage0.prototype = {
         if (color != this.colorBox.tint) {
             this.missedCounter++;
             this.missedText.text = "Missed: " + this.missedCounter;
+            this.catchedText.fill = "#91807a"
+            this.missedText.fill = "#fb3968";
 
         } else {
 
@@ -57,29 +59,24 @@ Stage0.prototype = {
                 case BC.BLUE:
 
                     this.pickedColor = BC.BLUE;
-                    this.catchedCounter++;
-                    this.catchedText.text = "Catched: " + this.catchedCounter;
-
                     break;
 
                 case BC.RED:
                     this.pickedColor = BC.RED;
-                    this.catchedCounter++;
-                    this.catchedText.text = "Catched: " + this.catchedCounter;
                     break;
 
                 case BC.YELLOW:
                     this.pickedColor = BC.YELLOW;
-                    this.catchedCounter++;
-                    this.catchedText.text = "Catched: " + this.catchedCounter;
                     break;
 
                 case BC.GREEN:
                     this.pickedColor = BC.GREEN;
-                    this.catchedCounter++;
-                    this.catchedText.text = "Catched: " + this.catchedCounter;
                     break;
             }
+            this.catchedCounter++;
+            this.catchedText.text = "Catched: " + this.catchedCounter;
+            this.catchedText.fill = "#fb3968"
+            this.missedText.fill = "#91807a";
 
             this.fadeSignal.dispatch(this.colorBox);
         }
@@ -111,19 +108,16 @@ Stage0.prototype = {
     },
 
      playerWins: function() {
-             
-        // set nr of stars for this level
-        LEVEL_DATA[this._levelNumber - 1] = this._levelNumber;
-
-        // unlock next level
-        if (this._levelNumber < LEVEL_DATA.length) {
-            if (LEVEL_DATA[this._levelNumber] < 0) { // currently locked (=-1)
-                LEVEL_DATA[this._levelNumber] = 0; // set unlocked, 0 stars
-            }
-        };
-
-        // and write to local storage
+     
+        LEVEL_DATA[this._levelNumber + 1] = this._levelNumber + 1;
         window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
+    },
+
+      shutdown: function (pointer) {
+
+     delete this.inputCreator;
+     delete this.animationManager;        
+
     }
 
 };

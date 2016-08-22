@@ -1,93 +1,107 @@
- var ball1;
- var ball2;
- var disk;
+var Stage1 = function() {
 
- 
- var Stage1 = function() {
+};
 
- };
-
- Stage1.prototype = {
+Stage1.prototype = {
 
 
-     init: function(game, animationManager) {
-         this.game = game;
-         this.animationManager = animationManager;
-         
-     },
+    init: function(game, animationManager) {
+        this.game = game;
+        this.animationManager = animationManager;
 
-     preload: function() {
+    },
 
-         this._levelNumber = 1;
+    preload: function() {
 
-         this.game.load.image('circle', 'assets/circleStage1.png');
-         this.game.load.image('box', 'assets/boxStage1.png');
+        this._levelNumber = 1;
 
-     },
+        this.game.load.image('circle', 'assets/circleStage1.png');
+        this.game.load.image('box', 'assets/boxStage1.png');
 
-     create: function() {
+    },
 
-          
+    create: function() {
+
+
         this.inputCreator = new InputCreator(this.game, this.animationManager);
         this.game.add.tileSprite(0, 0, 640, 240, 'riddleBackground');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        //
 
-         disk = this.game.add.sprite(80, 20, 'box');
-         ball1 = this.game.add.sprite(20, 20, 'circle');
-         ball2 = this.game.add.sprite(700, 240, 'circle');
+        this.boxBaseR = this.game.add.sprite(233, 13, 'boxBase'); //basered
+        this.boxBaseY = this.game.add.sprite(333, 13, 'boxBase'); //baseyellow     
+        this.boxBaseG = this.game.add.sprite(233, 113, 'boxBase'); //basegreen
+        this.boxBaseB = this.game.add.sprite(333, 113, 'boxBase'); //baseblue
 
 
-         this.game.physics.arcade.enable([disk, ball1, ball2]);
 
-         //  By default the Body is a rectangle. Let's turn it into a Circle with a radius of 45 pixels
+        this.boxR = this.game.add.sprite(240, 20, 'box');
+        this.boxY = this.game.add.sprite(340, 20, 'box');
+        this.boxG = this.game.add.sprite(240, 120, 'box');
+        this.boxB = this.game.add.sprite(340, 120, 'box');
 
-         ball1.body.setCircle(30);
-         ball2.body.setCircle(30);
 
-         // ball1.body.immovable = true;
-         // ball2.body.mass = 3;
+        this.boxBaseR.tint = '0xCD044E'; //basered
+        this.boxBaseY.tint = '0xFFBF0F'; //baseyellow
+        this.boxBaseB.tint = '0x0057A9'; //baseblue
+        this.boxBaseG.tint = '0x3DA239'; //basegreen
 
-         //  Set the ball to collide with the world, have gravity, bounce, and move.
-         ball1.body.collideWorldBounds = true;
-         ball2.body.collideWorldBounds = true;
-         disk.body.collideWorldBounds = true;
+        this.boxR.tint = '0x121211'; //red
+        this.boxY.tint = '0x121211'; //yellow
+        this.boxG.tint = '0x121211'; //green
+        this.boxB.tint = '0x121211'; //blue
 
-         ball1.body.bounce.set(0.3); // bounce: heavy material
-         ball1.tint = '#000000';
-         ball2.body.bounce.set(1.2);
-        // disk.body.bounce.set(1);
+       // this.boxR.alpha = 1; //red
+       // this.boxY.alpha = 1; //red
+       // this.boxG.alpha = 1; //red
+       // this.boxB.alpha = 1; //red
 
-         ball1.body.gravity.y = 100;
-         ball2.body.gravity.y = 100;
-         disk.body.gravity.y = 0;
-         disk.body.immovable = true;
-         // ball1.body.velocity.x = 50;
-         // ball2.body.velocity.x = -50;
+        this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
 
-         ball1.body.velocity.set(150);
-         ball2.body.velocity.set(-50, 60);
-         
-          /**************!!!!!!!!!!!!!!!!!!!!!!!!!!!**********************/
-         // this.game.input.onDown.add(function() { console.log(this.game.physics.arcade.intersects(ball1.body, ball2.body)); });
-         // game.input.onDown.add(function() { console.log(game.physics.arcade.intersects(ball1.body, disk.body)); });
-this.playerWins();
-     },
+        this.playerWins();
+    },
 
-     update: function() {
-         this.inputCreator.updateInputCreator();
+    update: function() {
+        this.inputCreator.updateInputCreator();
 
-         this.game.physics.arcade.collide(ball1, ball2);
-         this.game.physics.arcade.collide(ball1, disk);
-         this.game.physics.arcade.collide(ball2, disk);
-     },
+    },
 
-     render: function() {
-       // this.game.debug.body(disk);
-       //  this.game.debug.body(ball1);
-       //  this.game.debug.body(ball2);
-     },
-      playerWins: function() {
-             
+    render: function() {
+        // this.game.debug.body(disk);
+        //  this.game.debug.body(ball1);
+        //  this.game.debug.body(ball2);
+    },
+
+    onColorPicked: function(color) {
+
+        switch (color) {
+
+            case BC.RED:
+
+                this.animationManager.tweenTint(this.boxR, this.boxR.tint, this.boxBaseR.tint, 500);
+                // this.boxR.alpha -= 0.2;
+                break;
+            case BC.GREEN:
+                this.animationManager.tweenTint(this.boxG, this.boxG.tint, this.boxBaseG.tint, 500);
+                break;
+            case BC.BLUE:
+                this.animationManager.tweenTint(this.boxB, this.boxB.tint, this.boxBaseB.tint, 500);
+                break;
+            case BC.YELLOW:
+                this.animationManager.tweenTint(this.boxY, this.boxY.tint, this.boxBaseY.tint, 500);
+                break;
+            default:
+                break;
+
+        }
+
+
+
+
+    },
+
+    playerWins: function() {
+
         // set nr of stars for this level
         LEVEL_DATA[this._levelNumber - 1] = this._levelNumber;
 
@@ -100,5 +114,13 @@ this.playerWins();
 
         // and write to local storage
         window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
+    },
+
+    shutdown: function(pointer) {
+        console.log("bye");
+        delete this.inputCreator;
+        delete this.animationManager;
+
+
     }
- };
+};

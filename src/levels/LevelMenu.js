@@ -18,7 +18,7 @@ LevelMenu.prototype = {
     },
 
     create: function() {
-        console.log("LLLLLLLLLLLLL");
+       // console.log("LLLLLLLLLLLLL");
         this.game.stage.backgroundColor = '#EDEDED';
         var mainMenuText = this.game.add.text(200, 60, "SELECT A LEVEL");
         mainMenuText.font = 'Rubik';
@@ -211,10 +211,8 @@ LevelMenu.prototype = {
     },
 
     onLevelSelected: function(levelnr) {
-        // pass levelnr variable to 'Game' state
-        var stagename = 'stage'+ (levelnr-1);
-       console.log("STAGENAME = " + stagename);
-       // this.game.state.states[stagename]._levelNumber = levelnr;
+
+        var stagename = 'stage'+ (levelnr-1);      
         this.game.state.start(stagename, true, false, this.game, animationManager);
     }
 };
