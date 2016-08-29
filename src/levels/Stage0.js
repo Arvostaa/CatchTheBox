@@ -29,8 +29,8 @@ Stage0.prototype = {
 
         this.catchedCounter = 0;
         this.missedCounter = 0;
-        this.catchedText = this.game.add.text(80, 180, "Catched: 0", style);
-        this.missedText = this.game.add.text(WC.GAME_W - 250, 180, "Missed: 0", style);
+        this.catchedText = this.game.add.text(80, 180, "+: 0", style);
+        this.missedText = this.game.add.text(WC.GAME_W - 250, 180, "-: 0", style);
         this.pickedColorText = this.game.add.text(250, 10, "", style);
 
         this.fadeSignal = new Phaser.Signal();
@@ -48,7 +48,7 @@ Stage0.prototype = {
 
         if (color != this.colorBox.tint) {
             this.missedCounter++;
-            this.missedText.text = "Missed: " + this.missedCounter;
+            this.missedText.text = "-: " + this.missedCounter;
             this.catchedText.fill = "#91807a"
             this.missedText.fill = "#fb3968";
 
@@ -74,7 +74,7 @@ Stage0.prototype = {
                     break;
             }
             this.catchedCounter++;
-            this.catchedText.text = "Catched: " + this.catchedCounter;
+            this.catchedText.text = "+: " + this.catchedCounter;
             this.catchedText.fill = "#fb3968"
             this.missedText.fill = "#91807a";
 
@@ -115,8 +115,8 @@ Stage0.prototype = {
 
       shutdown: function (pointer) {
 
-     delete this.inputCreator;
-     delete this.animationManager;        
+  //   delete this.inputCreator;
+    //delete this.animationManager;        
 
     }
 

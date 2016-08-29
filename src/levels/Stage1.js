@@ -9,11 +9,11 @@ Stage1.prototype = {
         this.game = game;
         this.animationManager = animationManager;
 
+        this._levelNumber = 1;
+
     },
 
     preload: function() {
-
-        this._levelNumber = 1;
 
         this.game.load.image('circle', 'assets/circleStage1.png');
         this.game.load.image('box', 'assets/boxStage1.png');
@@ -22,6 +22,15 @@ Stage1.prototype = {
 
     create: function() {
 
+        this.style = {
+            font: "30px rubik",
+            fill: "#CD044E",
+            align: "center"
+        };
+
+        this.gratulierenSignal = new Phaser.Signal();
+        this.gratulierenSignal.add(this.showWinDialog, this);
+        this.alpha = -0.5;
 
         this.inputCreator = new InputCreator(this.game, this.animationManager);
         this.game.add.tileSprite(0, 0, 640, 240, 'riddleBackground');
@@ -51,10 +60,6 @@ Stage1.prototype = {
         this.boxG.tint = '0x121211'; //green
         this.boxB.tint = '0x121211'; //blue
 
-       // this.boxR.alpha = 1; //red
-       // this.boxY.alpha = 1; //red
-       // this.boxG.alpha = 1; //red
-       // this.boxB.alpha = 1; //red
 
         this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
 
@@ -63,13 +68,12 @@ Stage1.prototype = {
 
     update: function() {
         this.inputCreator.updateInputCreator();
+        this.playerWins();
 
     },
 
     render: function() {
-        // this.game.debug.body(disk);
-        //  this.game.debug.body(ball1);
-        //  this.game.debug.body(ball2);
+
     },
 
     onColorPicked: function(color) {
@@ -78,48 +82,41 @@ Stage1.prototype = {
 
             case BC.RED:
 
-                this.animationManager.tweenTint(this.boxR, this.boxR.tint, this.boxBaseR.tint, 500);
-                // this.boxR.alpha -= 0.2;
+                // this.animationManager.tweenTint(this.boxR, this.boxR.tint, this.boxBaseR.tint, 500);
+                this.animationManager.increaseAlpha(this.boxR, this.alpha);
                 break;
             case BC.GREEN:
-                this.animationManager.tweenTint(this.boxG, this.boxG.tint, this.boxBaseG.tint, 500);
+                this.animationManager.increaseAlpha(this.boxG, this.alpha);
                 break;
             case BC.BLUE:
-                this.animationManager.tweenTint(this.boxB, this.boxB.tint, this.boxBaseB.tint, 500);
+                this.animationManager.increaseAlpha(this.boxB, this.alpha);
                 break;
             case BC.YELLOW:
-                this.animationManager.tweenTint(this.boxY, this.boxY.tint, this.boxBaseY.tint, 500);
+                this.animationManager.increaseAlpha(this.boxY, this.alpha);
                 break;
             default:
                 break;
 
         }
-
-
-
-
     },
 
     playerWins: function() {
+        if (this.boxR.alpha == 0 && this.boxY.alpha == 0 && this.boxB.alpha == 0 && this.boxG.alpha == 0) {
+            this.boxR.alpha= 0.00001;
+            this.gratulierenSignal.dispatch();
+        }
 
-        // set nr of stars for this level
-        LEVEL_DATA[this._levelNumber - 1] = this._levelNumber;
 
-        // unlock next level
-        if (this._levelNumber < LEVEL_DATA.length) {
-            if (LEVEL_DATA[this._levelNumber] < 0) { // currently locked (=-1)
-                LEVEL_DATA[this._levelNumber] = 0; // set unlocked, 0 stars
-            }
-        };
-
-        // and write to local storage
-        window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
+    },
+    showWinDialog: function() {
+console.log("NOELOAAZA");
+        this.game.add.text(80, 100, "GRATULIEREN, GRATULIEREN", this.style);
     },
 
     shutdown: function(pointer) {
         console.log("bye");
         delete this.inputCreator;
-        delete this.animationManager;
+       delete this.animationManager;
 
 
     }

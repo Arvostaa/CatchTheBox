@@ -4,7 +4,7 @@ AnimationManager = function(game) {
 }
 
 
-AnimationManager.prototype.fadeAndRecolor = function(object) {
+AnimationManager.prototype.fadeAndRecolor = function(object) { //Stage0
 
     this.game.time.events.add(10, function() {
 
@@ -28,8 +28,19 @@ AnimationManager.prototype.fadeAndRecolor = function(object) {
 
 };
 
-AnimationManager.prototype.fadeIn = function(object) {
+AnimationManager.prototype.increaseAlpha = function(object, a){
 
+var alpha = object.alpha + a;
+if(alpha<0) alpha = 0;
+ this.game.add.tween(object).to({ // fade out in 50ms 
+            alpha: alpha
+        }, 250, Phaser.Easing.Linear.None, true);
+
+};
+
+
+
+AnimationManager.prototype.fadeIn = function(object) {
 this.tweenTint(object, '0x62273e','0xfb3968',150); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
 };

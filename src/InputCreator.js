@@ -26,7 +26,7 @@ InputCreator.prototype = {
         this.cursorsManager.keySignal.add(this.buttonFactory.onKeyDown, this.buttonFactory);
         this.cursorsManager.keySignal.add(this.boxFactory.onKeyDown, this.boxFactory);
 
-
+ 
     },
 
     createAnimation: function() {

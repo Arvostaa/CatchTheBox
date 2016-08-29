@@ -1,6 +1,6 @@
 BoxFactory = function(game) {
 
-    this.game = game;
+    this.game = game; //tablicaaa + underscore
 
     this.boxGroup1 = new BoxGroup(game, BC.B_STARTX, 1);
     this.boxGroup2 = new BoxGroup(game, BC.B_STARTX + WC.GAME_W / 4, 2);
@@ -20,7 +20,6 @@ BoxFactory = function(game) {
 BoxFactory.prototype.onKeyDown = function(direction) { //if spacebar down - catch the box, pass the color
 
     if (direction == CC.SPACEBAR) {
-        console.log("wc.button = " + WC.BUTTON);
         switch (WC.BUTTON) {
 
             case 0:
@@ -40,7 +39,6 @@ BoxFactory.prototype.onKeyDown = function(direction) { //if spacebar down - catc
 
 BoxFactory.prototype.updateBoxes = function() { //wrap the box if has entered world bounds
 
-
     this.boxGroup1.checkPosition();
     this.boxGroup2.checkPosition();
     this.boxGroup3.checkPosition();
@@ -48,26 +46,7 @@ BoxFactory.prototype.updateBoxes = function() { //wrap the box if has entered wo
 };
 
 BoxFactory.prototype.onCatchedBox = function(color) {
-
-    switch (color) {
-
-        case BC.BLUE:
-            this.color = BC.BLUE;
-            break;
-
-        case BC.RED:
-            this.color = BC.RED;
-            break;
-
-        case BC.YELLOW:
-            this.color = BC.YELLOW;
-            break;
-
-        case BC.GREEN:
-            this.color = BC.GREEN;
-            break;
-    }
-
+    this.color = color;
     this.colorSignal.dispatch(this.color);
 };
 
