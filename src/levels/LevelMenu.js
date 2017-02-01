@@ -3,10 +3,8 @@ var assetsManager;
 var animationManager;
 
 LevelMenu = function(game) {
-    // define needed variables for mygame.LevelSelect
     this.game = game;
     this.holdicons = [];
-
 };
 
 LevelMenu.prototype = {
@@ -18,25 +16,25 @@ LevelMenu.prototype = {
     },
 
     create: function() {
-       // console.log("LLLLLLLLLLLLL");
+        // console.log("LLLLLLLLLLLLL");
         this.game.stage.backgroundColor = '#EDEDED';
         var mainMenuText = this.game.add.text(200, 60, "SELECT A LEVEL");
         mainMenuText.font = 'Rubik';
         mainMenuText.fill = '#7C6F6E';
 
-
         animationManager = new AnimationManager(this.game);
-        this.game.world.setBounds(0,0,640,220);
+        this.game.world.setBounds(0, 0, 640, 220);
 
         this.createLevelIcons();
         this.animateLevelIcons();
-       
+
     },
 
     update: function() {
 
     },
 
+    
     render: function() {
 
     },
@@ -212,7 +210,7 @@ LevelMenu.prototype = {
 
     onLevelSelected: function(levelnr) {
 
-        var stagename = 'stage'+ (levelnr-1);      
+        var stagename = 'stage' + (levelnr - 1);
         this.game.state.start(stagename, true, false, this.game, animationManager);
     }
 };

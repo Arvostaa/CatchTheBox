@@ -1,5 +1,4 @@
 AnimationManager = function(game) {
-
     this.game = game;
 }
 
@@ -28,42 +27,39 @@ AnimationManager.prototype.fadeAndRecolor = function(object) { //Stage0
 
 };
 
-AnimationManager.prototype.increaseAlpha = function(object, a){
+AnimationManager.prototype.increaseAlpha = function(object, a) {
 
-var alpha = object.alpha + a;
-if(alpha<0) alpha = 0;
- this.game.add.tween(object).to({ // fade out in 50ms 
-            alpha: alpha
-        }, 250, Phaser.Easing.Linear.None, true);
+    var alpha = object.alpha + a;
+    if (alpha < 0) alpha = 0.5;
+    this.game.add.tween(object).to({ // fade out in 50ms 
+        alpha: alpha
+    }, 250, Phaser.Easing.Linear.None, true);
 
 };
 
 
-
 AnimationManager.prototype.fadeIn = function(object) {
-this.tweenTint(object, '0x62273e','0xfb3968',150); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
-
+    this.tweenTint(object, '0x62273e', '0xFF9C24', 150); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 };
 
 AnimationManager.prototype.fadeOut = function(object) {
 
-this.tweenTint(object,'0xfb3968','0x62273e',150); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
+    this.tweenTint(object, '0xFF9C24', '0x62273e', 150); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
 };
 
 AnimationManager.prototype.fadeCatch = function(object) {
 
-this.tweenTint(object,'0xfb3968','0xffab3d',100); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
+    this.tweenTint(object, '0xfb3968', '0xffab3d', 100); // tween the tint of sprite from red to blue over 2 seconds (2000ms)
 
 };
 
-AnimationManager.prototype.erlargeAndFade = function(object){
+AnimationManager.prototype.erlargeAndFade = function(object) {
 
-this.tweenTint(object,'0xf50039','0xF0FDFF',250);
-
-this.game.add.tween(object).to({ // fade out in 50ms 
-            alpha: 0
-        }, 250, Phaser.Easing.Linear.None, true);
+    this.tweenTint(object, '0xf50039', '0xF0FDFF', 250);
+    this.game.add.tween(object).to({ // fade out in 50ms 
+        alpha: 0
+    }, 250, Phaser.Easing.Linear.None, true);
 
 };
 
@@ -106,9 +102,37 @@ AnimationManager.prototype.changeRGB = function(box) {
             box.tint = this.RGBtoHEX(39, 162, 227); //blue
             break;
     }
-
 };
 
 AnimationManager.prototype.RGBtoHEX = function(r, g, b) {
     return r << 16 | g << 8 | b;
+};
+
+AnimationManager.prototype.tweenMoveStage2 = function(posX, posY, object, startP) {
+ 
+var shift = (posY >= startP) ? posY : posY + 2*startP;
+var alpha = (posY == startP) ? 1 : object.alpha + 0.24;
+if(object.x == startP) alpha = 0.76;
+
+ this.game.add.tween(object).to({ 
+        alpha: alpha
+    }, 250, Phaser.Easing.Linear.None, true);
+
+    this.game.add.tween(object).to({ 
+        x: posX,
+        y: shift
+    }, 250, Phaser.Easing.Linear.None, true);
+
+  
+  
+
+};
+
+AnimationManager.prototype.tweenMoveStage3 = function(object) {
+
+ this.game.add.tween(object).to({ 
+        angle: '+45',
+    }, 250, Phaser.Easing.Linear.None, true);
+
+
 };

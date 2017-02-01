@@ -1,6 +1,4 @@
-var Stage0 = function() {
-
-};
+var Stage0 = function() {};
 
 Stage0.prototype = {
 
@@ -17,8 +15,8 @@ Stage0.prototype = {
     create: function() {
 
         this.inputCreator = new InputCreator(this.game, this.animationManager);
-        this.game.add.tileSprite(0, 0, 640, 240, 'riddleBackground');
-        this.colorBox = this.game.add.sprite(280, 70, 'boxStage0');
+        this.game.add.tileSprite(0, 0, WC.GAME_W, WC.GAME_H / 2, 'riddleBackground');
+        this.colorBox = this.game.add.sprite((WC.GAME_W / 2 - WC.BOX_W), WC.BOX_W, 'boxStage0');
         this.changeRGB(this.colorBox);
 
         var style = {
@@ -27,9 +25,9 @@ Stage0.prototype = {
             align: "center"
         };
 
-        this.catchedCounter = 0;
+        this.caughtCounter = 0;
         this.missedCounter = 0;
-        this.catchedText = this.game.add.text(80, 180, "+: 0", style);
+        this.caughtText = this.game.add.text(80, 180, "+: 0", style);
         this.missedText = this.game.add.text(WC.GAME_W - 250, 180, "-: 0", style);
         this.pickedColorText = this.game.add.text(250, 10, "", style);
 
@@ -49,33 +47,15 @@ Stage0.prototype = {
         if (color != this.colorBox.tint) {
             this.missedCounter++;
             this.missedText.text = "-: " + this.missedCounter;
-            this.catchedText.fill = "#91807a"
+            this.caughtText.fill = "#91807a"
             this.missedText.fill = "#fb3968";
 
         } else {
 
-            switch (color) {
-
-                case BC.BLUE:
-
-                    this.pickedColor = BC.BLUE;
-                    break;
-
-                case BC.RED:
-                    this.pickedColor = BC.RED;
-                    break;
-
-                case BC.YELLOW:
-                    this.pickedColor = BC.YELLOW;
-                    break;
-
-                case BC.GREEN:
-                    this.pickedColor = BC.GREEN;
-                    break;
-            }
-            this.catchedCounter++;
-            this.catchedText.text = "+: " + this.catchedCounter;
-            this.catchedText.fill = "#fb3968"
+            this.pickedColor = color;
+            this.caughtCounter++;
+            this.caughtText.text = "+: " + this.caughtCounter;
+            this.caughtText.fill = "#fb3968"
             this.missedText.fill = "#91807a";
 
             this.fadeSignal.dispatch(this.colorBox);
@@ -107,17 +87,9 @@ Stage0.prototype = {
 
     },
 
-     playerWins: function() {
-     
+    playerWins: function() {
+
         LEVEL_DATA[this._levelNumber + 1] = this._levelNumber + 1;
         window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
-    },
-
-      shutdown: function (pointer) {
-
-  //   delete this.inputCreator;
-    //delete this.animationManager;        
-
     }
-
 };

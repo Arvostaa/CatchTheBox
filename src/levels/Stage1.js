@@ -1,14 +1,10 @@
-var Stage1 = function() {
-
-};
+var Stage1 = function() {};
 
 Stage1.prototype = {
-
 
     init: function(game, animationManager) {
         this.game = game;
         this.animationManager = animationManager;
-
         this._levelNumber = 1;
 
     },
@@ -33,22 +29,18 @@ Stage1.prototype = {
         this.alpha = -0.5;
 
         this.inputCreator = new InputCreator(this.game, this.animationManager);
-        this.game.add.tileSprite(0, 0, 640, 240, 'riddleBackground');
+        this.game.add.tileSprite(0, 0, WC.GAME_W, WC.INPUT_H, 'riddleBackground');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        //
 
         this.boxBaseR = this.game.add.sprite(233, 13, 'boxBase'); //basered
         this.boxBaseY = this.game.add.sprite(333, 13, 'boxBase'); //baseyellow     
         this.boxBaseG = this.game.add.sprite(233, 113, 'boxBase'); //basegreen
         this.boxBaseB = this.game.add.sprite(333, 113, 'boxBase'); //baseblue
 
-
-
         this.boxR = this.game.add.sprite(240, 20, 'box');
         this.boxY = this.game.add.sprite(340, 20, 'box');
         this.boxG = this.game.add.sprite(240, 120, 'box');
         this.boxB = this.game.add.sprite(340, 120, 'box');
-
 
         this.boxBaseR.tint = '0xCD044E'; //basered
         this.boxBaseY.tint = '0xFFBF0F'; //baseyellow
@@ -60,29 +52,22 @@ Stage1.prototype = {
         this.boxG.tint = '0x121211'; //green
         this.boxB.tint = '0x121211'; //blue
 
-
         this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
-
         this.playerWins();
     },
 
     update: function() {
         this.inputCreator.updateInputCreator();
         this.playerWins();
-
     },
 
-    render: function() {
-
-    },
+    render: function() {},
 
     onColorPicked: function(color) {
 
         switch (color) {
 
             case BC.RED:
-
-                // this.animationManager.tweenTint(this.boxR, this.boxR.tint, this.boxBaseR.tint, 500);
                 this.animationManager.increaseAlpha(this.boxR, this.alpha);
                 break;
             case BC.GREEN:
@@ -102,22 +87,15 @@ Stage1.prototype = {
 
     playerWins: function() {
         if (this.boxR.alpha == 0 && this.boxY.alpha == 0 && this.boxB.alpha == 0 && this.boxG.alpha == 0) {
-            this.boxR.alpha= 0.00001;
+            this.boxR.alpha = 0.00001;
             this.gratulierenSignal.dispatch();
         }
 
-
+        LEVEL_DATA[this._levelNumber + 1] = this._levelNumber + 1;
+        window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
     },
+
     showWinDialog: function() {
-console.log("NOELOAAZA");
-        this.game.add.text(80, 100, "GRATULIEREN, GRATULIEREN", this.style);
-    },
-
-    shutdown: function(pointer) {
-        console.log("bye");
-        delete this.inputCreator;
-       delete this.animationManager;
-
-
+        this.game.add.text(90, 300, "GRATULIEREN, GRATULIEREN", this.style);
     }
 };

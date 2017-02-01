@@ -12,6 +12,7 @@ BoxFactory = function(game) {
 
     this.color;
     this.colorSignal = new Phaser.Signal();
+    this.activeButtonIndex = 0;
 
 };
 
@@ -20,7 +21,8 @@ BoxFactory = function(game) {
 BoxFactory.prototype.onKeyDown = function(direction) { //if spacebar down - catch the box, pass the color
 
     if (direction == CC.SPACEBAR) {
-        switch (WC.BUTTON) {
+        console.log("S: " + this.activeButtonIndex);
+        switch (this.activeButtonIndex) {
 
             case 0:
                 this.boxGroup1.checkOverlap();
@@ -50,39 +52,7 @@ BoxFactory.prototype.onCatchedBox = function(color) {
     this.colorSignal.dispatch(this.color);
 };
 
-
-/*
-
-BoxFactory.prototype.generateNewPositionY = function() { //
-    var arr = []
-    var isChanged = true;
-    while (arr.length < 6) {
-        var randomnumber = Math.random() * (BC.MAX_Y - BC.MIN_Y + 1) + BC.MIN_Y;
-        // var randomnumber = Math.ceil(Math.random() * 100)
-        var found = false;
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i] == randomnumber) {
-                found = true;
-                break
-            }
-        }
-        if (!found) arr[arr.length] = randomnumber + BC.B_H;
-    }
-    arr.sort();
-    //console.log(arr[0] + " " + arr[1] + " " + arr[2] + " " + arr[3] + " " +arr[4] );
-
-    while (isChanged) {
-        for (i = 0; i < arr.length - 1; i++) {
-            if (arr[i + 1] - arr[i] < 3 * BC.B_H / 2) {
-                arr[i + 1] += 2 * BC.B_H;
-                arr.sort();
-                isChanged = true;
-                break;
-            } else isChanged = false;
-        }
-
-    }
-
-    return arr;
+BoxFactory.prototype.setActiveButtonIndex = function(index){
+    console.log(index);
+   this.activeButtonIndex = index;
 }
-*/

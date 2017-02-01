@@ -11,14 +11,10 @@ BoxGroup = function(game, x, boxId) {
 
     this.boxGroup.setAll('body.immovable', false);
     this.boxGroup.setAll('body.velocity.y', 0);
-
     this.catchedBoxSignal = new Phaser.Signal();
-
-
     this.boxTimer = this.game.time.create(false);
     this.boxTimer.start();
     this.startTheBoxes();
-
     this.color;
 
 };
@@ -67,27 +63,25 @@ BoxGroup.prototype.checkOverlap = function() {
 
 BoxGroup.prototype.checkButtonOverlap = function(box) {
 
-    if (BUC.B_Y + BUC.B_H / 2 - box.y < BC.B_H && BUC.B_Y + BUC.B_H / 2 - box.y >= -BC.B_H / 5) { //if box overlaps active button
+    if (WC.BUTTON_Y + WC.BOX_H / 2 - box.y < WC.BOX_H && WC.BUTTON_Y + WC.BOX_H / 2 - box.y >= -WC.BOX_H / 5) { //if box overlaps active button
         if (this.boxGroup.total <= 5)
             this.addBox(this.posX, BC.B_STARTY, 'box1');
 
         this.getColor(box);
-
-       box.anchor.setTo(0.2, 1);
+        box.anchor.setTo(0.2, 1);
 
         this.game.add.tween(box).to({
             alpha: 0
         }, 250, Phaser.Easing.Linear.None, true);
 
         this.game.add.tween(box.scale).to({
-        x: 2,
-        y: 2
-    }, 250, Phaser.Easing.Linear.None, true);
+            x: 2,
+            y: 2
+        }, 250, Phaser.Easing.Linear.None, true);
 
-    this.game.time.events.add(252, this.removeTheBox, this, box);
-    // this.removeTheBox(box);
-    this.catchedBoxSignal.dispatch(this.color); //******SEND SIGNAL*****//
-}
+        this.game.time.events.add(252, this.removeTheBox, this, box);
+        this.catchedBoxSignal.dispatch(this.color); //******SEND SIGNAL*****//
+    }
 };
 
 BoxGroup.prototype.removeTheBox = function(box) {
@@ -105,9 +99,8 @@ BoxGroup.prototype.checkPosition = function() {
 };
 
 BoxGroup.prototype.checkEnteredBounds = function(box) {
-    //console.log(box);
-    if (box.y >= WC.GAME_H + 3 * BC.B_H / 2) {
 
+    if (box.y >= WC.GAME_H + 3 * BC.B_H / 2) {
         this.removeTheBox(box);
         this.addBox(this.posX, BC.B_STARTY, 'box1');
 

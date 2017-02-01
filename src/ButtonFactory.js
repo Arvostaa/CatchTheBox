@@ -1,6 +1,7 @@
 ButtonFactory = function(game) {
     this.fadeInSignal = new Phaser.Signal();
     this.fadeOutSignal = new Phaser.Signal();
+    this.activeButtonIndexSignal = new Phaser.Signal();
     this.buttonGroup = game.add.physicsGroup();
     this.game = game;
     this.create();
@@ -10,14 +11,14 @@ ButtonFactory = function(game) {
 };
 
 ButtonFactory.prototype.create = function() {
-    //  console.log("CREESAATE");
-    this.buttonGroup.create(BC.B_STARTX - BC.B_W / 4 - 2, BUC.B_Y, 'button');
-    this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 4 - BC.B_W / 4 - 2, BUC.B_Y, 'button');
-    this.buttonGroup.create(BC.B_STARTX + WC.GAME_W / 2 - BC.B_W / 4 - 2, BUC.B_Y, 'button');
+
+    this.buttonGroup.create(WC.BUTTON_X, WC.BUTTON_Y, 'button');
+    this.buttonGroup.create(WC.BUTTON_X + WC.BUTTON_SHIFT, WC.BUTTON_Y, 'button');
+    this.buttonGroup.create(WC.BUTTON_X + 2*WC.BUTTON_SHIFT, WC.BUTTON_Y, 'button');
     this.activeButtonIndex = 0;
 
     this.deactivateButtons();
-    this.buttonGroup.children[0].tint = '0xfb3968';
+    this.buttonGroup.children[0].tint = '0xFF9C24';
 };
 
 ButtonFactory.prototype.onKeyDown = function(direction) {
@@ -36,29 +37,10 @@ ButtonFactory.prototype.onKeyDown = function(direction) {
     }
 
     this.activeButtonIndex += activeButtonModif;
-    WC.BUTTON = this.activeButtonIndex;
-    this.fadeInSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex]);
+    this.activeButtonIndexSignal.dispatch(this.activeButtonIndex);
     this.fadeOutSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex + fadeOutIndexModif]);
+    this.fadeInSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex]);
 
-    // if (direction == CC.LEFT) {
-    //     if (this.activeButtonIndex == 0) {
-    //         this.fadeOutSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex]);
-    //     } else {
-    //         this.activeButtonIndex -= 1;
-    //         WC.BUTTON -= 1; //pousuwaj
-    //         this.fadeOutSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex + 1]);
-    //     }
-    // } else if (direction == CC.RIGHT) {
-    //     if (this.activeButtonIndex == 2) {
-    //         this.fadeOutSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex]);
-    //     } else {
-    //         this.activeButtonIndex += 1;
-    //         WC.BUTTON += 1;
-    //         this.fadeOutSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex - 1]);
-    //     }
-    // }
-
-    // this.fadeInSignal.dispatch(this.buttonGroup.children[this.activeButtonIndex]);
 };
 
 ButtonFactory.prototype.deactivateButtons = function() {
@@ -69,8 +51,4 @@ ButtonFactory.prototype.deactivateButtons = function() {
 
 };
 
-ButtonFactory.prototype.updateButtons = function() {
 
-    this.cursors.checkCursor();
-
-};

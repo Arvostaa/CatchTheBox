@@ -14,32 +14,50 @@ CursorsManager = function(game) {
 
 CursorsManager.prototype.checkKeys = function() {
 
-    if (this.directionPause > this.game.time.now) {
 
-        return;
-    }
-    if (this.spacebarPause > this.game.time.now) {
-
-        return;
-    }
 
     if (this.cursors.left.isDown) { //onKeyLeft
 
-        this.direction = CC.LEFT;
-        this.keySignal.dispatch(this.direction);
-        this.directionPause = this.game.time.now + 200;
 
-    } else if (this.cursors.right.isDown) { //onkeyRight
+        if (this.directionPause > this.game.time.now) {
+
+            return;
+        }
+
+        this.direction = CC.LEFT;
+        this.directionPause = this.game.time.now + 250;
+        this.keySignal.dispatch(this.direction);
+
+        //    console.log("LEFT " + this.directionPause + ", WORLD: " + this.game.time.now);
+
+    }
+    if (this.cursors.right.isDown) { //onkeyRight
+
+        if (this.directionPause > this.game.time.now) {
+
+            return;
+        }
 
         this.direction = CC.RIGHT;
+        this.directionPause = this.game.time.now + 250;
         this.keySignal.dispatch(this.direction);
-        this.directionPause = this.game.time.now + 200;
 
-    } else if (this.spaceKey.isDown) { //onSpacebarDown
+     //   console.log("RIGHT " + this.directionPause + ", WORLD: " + this.game.time.now);
+
+    }
+    if (this.spaceKey.isDown) { //onSpacebarDown
+
+
+        if (this.spacebarPause > this.game.time.now) {
+
+            return;
+        }
 
         this.direction = CC.SPACEBAR;
+        this.spacebarPause = this.game.time.now + 300;
         this.keySignal.dispatch(this.direction);
-        this.spacebarPause = this.game.time.now + 100;
-       // this.directionPause = this.game.time.now + 145;
+
+      //  console.log("SPACE " + this.spacebarPause + ", WORLD: " + this.game.time.now);
+
     }
 };
