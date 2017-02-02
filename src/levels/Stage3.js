@@ -21,6 +21,7 @@ Stage3.prototype = {
     },
 
     create: function() {
+
         console.log("STAGE3");
 
         this.style = {
@@ -30,6 +31,7 @@ Stage3.prototype = {
         };
         this.startPosition = 150;
 
+
         this.gratulierenSignal = new Phaser.Signal();
         this.gratulierenSignal.add(this.showWinDialog, this);
 
@@ -37,13 +39,13 @@ Stage3.prototype = {
         this.game.add.tileSprite(0, 0, WC.GAME_W, WC.INPUT_H, 'riddleBackground');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        this.circle = this.game.add.sprite(2*this.startPosition, this.startPosition, 'circle1');
-        this.triangle = this.game.add.sprite(2*this.startPosition + 57, this.startPosition, 'triangle');
-        this.green = this.game.add.sprite(2*this.startPosition, this.startPosition, 'green');
+        this.circle = this.game.add.sprite(2 * this.startPosition, this.startPosition, 'circle1');
+        this.triangle = this.game.add.sprite(2 * this.startPosition + 57, this.startPosition, 'triangle');
+        this.green = this.game.add.sprite(2 * this.startPosition, this.startPosition, 'green');
 
-        this.blue = this.game.add.sprite(2*this.startPosition, this.startPosition, 'blue');
-        this.red = this.game.add.sprite(2*this.startPosition, this.startPosition, 'red');
-        this.yellow = this.game.add.sprite(2*this.startPosition, this.startPosition, 'yellow');
+        this.blue = this.game.add.sprite(2 * this.startPosition, this.startPosition, 'blue');
+        this.red = this.game.add.sprite(2 * this.startPosition, this.startPosition, 'red');
+        this.yellow = this.game.add.sprite(2 * this.startPosition, this.startPosition, 'yellow');
 
         this.circle.anchor.set(0.5, 0.5);
         this.green.anchor.set(0.5, 0.5);
@@ -59,12 +61,15 @@ Stage3.prototype = {
 
         this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
 
-        //   this.playerWins();
+        this.gameWon = false;
+
+        Timer.createTimer(this.game, 40);
+
     },
 
     update: function() {
         this.inputCreator.updateInputCreator();
-        this.playerWins();
+        if (!this.gameWon) this.playerWins();
     },
 
     render: function() {},
@@ -79,6 +84,7 @@ Stage3.prototype = {
 
             case BC.GREEN:
                 this.animationManager.tweenMoveStage3(this.green);
+                break;
 
             case BC.BLUE:
                 this.animationManager.tweenMoveStage3(this.blue);
@@ -95,12 +101,15 @@ Stage3.prototype = {
     },
 
     playerWins: function() {
-        if (this.red.angle == 0 && this.yellow.angle == 0 && this.green.angle == 0 && this.blue.angle == 0)
+       if (this.red.angle == 0 && this.yellow.angle == 0 && this.green.angle == 0 && this.blue.angle == 0){
+            this.gameWon = true;
             this.gratulierenSignal.dispatch();
+        }
 
     },
 
     showWinDialog: function() {
-        this.game.add.text(90, 300, "GRATULIEREN, GRATULIEREN", this.style);
+
+    LevelDialog.nextLevel(this.game);
     }
 };
