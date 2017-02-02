@@ -54,11 +54,13 @@ Stage1.prototype = {
 
         this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
         this.playerWins();
+        this.gameWon = false;
+        Timer.createTimer(this.game, 18);
     },
 
     update: function() {
         this.inputCreator.updateInputCreator();
-        this.playerWins();
+        if (!this.gameWon) this.playerWins();
     },
 
     render: function() {},
@@ -87,7 +89,7 @@ Stage1.prototype = {
 
     playerWins: function() {
         if (this.boxR.alpha == 0 && this.boxY.alpha == 0 && this.boxB.alpha == 0 && this.boxG.alpha == 0) {
-            this.boxR.alpha = 0.00001;
+            this.gameWon = true;
             this.gratulierenSignal.dispatch();
         }
 
@@ -96,6 +98,6 @@ Stage1.prototype = {
     },
 
     showWinDialog: function() {
-        this.game.add.text(90, 300, "GRATULIEREN, GRATULIEREN", this.style);
+        LevelDialog.nextLevel(this.game);
     }
 };

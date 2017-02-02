@@ -62,7 +62,6 @@ Stage3.prototype = {
         this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
 
         this.gameWon = false;
-
         Timer.createTimer(this.game, 40);
 
     },
@@ -101,15 +100,17 @@ Stage3.prototype = {
     },
 
     playerWins: function() {
-       if (this.red.angle == 0 && this.yellow.angle == 0 && this.green.angle == 0 && this.blue.angle == 0){
+        if (this.red.angle == 0 && this.yellow.angle == 0 && this.green.angle == 0 && this.blue.angle == 0) {
             this.gameWon = true;
             this.gratulierenSignal.dispatch();
+            LEVEL_DATA[this._levelNumber + 1] = this._levelNumber + 1;
+            window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
         }
 
     },
 
     showWinDialog: function() {
 
-    LevelDialog.nextLevel(this.game);
+        LevelDialog.nextLevel(this.game);
     }
 };

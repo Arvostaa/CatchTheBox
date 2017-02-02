@@ -63,12 +63,18 @@ Stage2.prototype = {
         this.alpha = 0.24;
 
         this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
-        this.playerWins();
+
+        this.gameWon = false;
+        Timer.createTimer(this.game, 25);
+
+        LEVEL_DATA[this._levelNumber + 1] = this._levelNumber + 1;
+        window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
+
     },
 
     update: function() {
         this.inputCreator.updateInputCreator();
-        this.playerWins();
+        if (!this.gameWon) this.playerWins();
     },
 
     render: function() {},
@@ -100,14 +106,15 @@ Stage2.prototype = {
     },
 
     playerWins: function() {
-        if (this.square.y == this.startPosition && this.triangle.y == this.startPosition && this.rhombus.y == this.startPosition && this.circle.y == this.startPosition)
+        if (this.square.y == this.startPosition && this.triangle.y == this.startPosition && this.rhombus.y == this.startPosition && this.circle.y == this.startPosition) {
+            this.gameWon = true;
             this.gratulierenSignal.dispatch();
-          LEVEL_DATA[this._levelNumber + 1] = this._levelNumber + 1;
-        window.localStorage.setItem('mygame_progress', JSON.stringify(LEVEL_DATA));
+
+        }
 
     },
 
     showWinDialog: function() {
-        this.game.add.text(90, 300, "GRATULIEREN, GRATULIEREN", this.style);
+        LevelDialog.nextLevel(this.game);
     }
 };
