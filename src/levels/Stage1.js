@@ -90,6 +90,7 @@ Stage1.prototype = {
     playerWins: function() {
         if (this.boxR.alpha == 0 && this.boxY.alpha == 0 && this.boxB.alpha == 0 && this.boxG.alpha == 0) {
             this.gameWon = true;
+            Timer.stopTimer(this.game);
             this.gratulierenSignal.dispatch();
         }
 
@@ -98,6 +99,8 @@ Stage1.prototype = {
     },
 
     showWinDialog: function() {
-        LevelDialog.nextLevel(this.game);
+        var level = this._levelNumber + 1;
+        console.log("llll" + level);
+        LevelDialog.nextLevel(this.game, level);
     }
 };

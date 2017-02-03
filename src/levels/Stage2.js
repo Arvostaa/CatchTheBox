@@ -108,6 +108,7 @@ Stage2.prototype = {
     playerWins: function() {
         if (this.square.y == this.startPosition && this.triangle.y == this.startPosition && this.rhombus.y == this.startPosition && this.circle.y == this.startPosition) {
             this.gameWon = true;
+            Timer.stopTimer(this.game);
             this.gratulierenSignal.dispatch();
 
         }
@@ -115,6 +116,8 @@ Stage2.prototype = {
     },
 
     showWinDialog: function() {
-        LevelDialog.nextLevel(this.game);
+        var level = this._levelNumber + 1;
+        console.log("lvl w stage2: " + level);
+        LevelDialog.nextLevel(this.game, level);
     }
 };
