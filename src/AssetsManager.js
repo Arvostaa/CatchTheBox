@@ -11,4 +11,5 @@ function AssetsManager(game) {
 
     this.game.load.image('circle', 'assets/circleStage1.png');
     this.game.load.image('box', 'assets/boxStage1.png');
+    this.game.load.image('timer', 'assets/timer.png')
 };

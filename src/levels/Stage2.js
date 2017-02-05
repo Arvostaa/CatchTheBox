@@ -110,14 +110,12 @@ Stage2.prototype = {
             this.gameWon = true;
             Timer.stopTimer(this.game);
             this.gratulierenSignal.dispatch();
-
         }
 
     },
 
     showWinDialog: function() {
         var level = this._levelNumber + 1;
-        console.log("lvl w stage2: " + level);
         LevelDialog.nextLevel(this.game, level);
     }
 };

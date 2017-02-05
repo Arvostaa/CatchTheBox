@@ -53,6 +53,5 @@ BoxFactory.prototype.onCatchedBox = function(color) {
 };
 
 BoxFactory.prototype.setActiveButtonIndex = function(index){
-    console.log(index);
    this.activeButtonIndex = index;
 }
