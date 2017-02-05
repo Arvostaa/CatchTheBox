@@ -59,7 +59,7 @@ Stage3.prototype = {
         this.red.angle = 45;
         this.yellow.angle = -90;
 
-        this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
+        this.inputCreator.boxFactory.getColorSignal().add(this.onColorPicked, this);
 
         this.gameWon = false;
         Timer.createTimer(this.game, 50);

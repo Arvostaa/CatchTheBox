@@ -62,7 +62,7 @@ Stage2.prototype = {
 
         this.alpha = 0.24;
 
-        this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
+        this.inputCreator.boxFactory.getColorSignal().add(this.onColorPicked, this);
 
         this.gameWon = false;
         Timer.createTimer(this.game, 25);

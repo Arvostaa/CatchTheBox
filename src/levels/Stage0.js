@@ -32,7 +32,7 @@ Stage0.prototype = {
         this.pickedColorText = this.game.add.text(250, 10, "", style);
 
         this.fadeSignal = new Phaser.Signal();
-        this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
+        this.inputCreator.boxFactory.getColorSignal().add(this.onColorPicked, this);
         this.fadeSignal.add(this.animationManager.fadeAndRecolor, this.animationManager);
 
         this.playerWins();
