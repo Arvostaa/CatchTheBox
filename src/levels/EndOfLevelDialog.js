@@ -1,6 +1,5 @@
 var LevelDialog = (function() {
 
-    var game;
     var nextStageName;
 
     var _NextLevelDialog = function(game, levelnr) {
@@ -24,8 +23,6 @@ var LevelDialog = (function() {
     };
 
     var _LevelDialog = function(game, text, fadeTime) {
-
-        game = game;
         this.dialogGroup = game.add.group();
 
         this.dialog = game.add.graphics(300, 300);
@@ -48,7 +45,6 @@ var LevelDialog = (function() {
     //****PUBLIC METHODS****//
 
     var NextLevelDialog = function(game, level) {
-
         _NextLevelDialog(game, level);
     };
 

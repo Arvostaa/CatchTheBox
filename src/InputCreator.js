@@ -15,7 +15,7 @@ InputCreator.prototype = {
         this.game.stage.backgroundColor = 'rgb(246, 246, 241)';
         this.game.add.tileSprite(0, WC.GAME_H / 2, WC.GAME_W, WC.INPUT_H, 'inputBackground');
         this.buttonFactory = new ButtonFactory(this.game);
-        this.boxFactory = new BoxFactory(this.game);
+        this.boxFactory = new BoxFactoryModule(this.game);
         this.cursorsManager = new CursorsManager(this.game);
         this.cursorsManager.keySignal.add(this.buttonFactory.onKeyDown, this.buttonFactory);
         this.cursorsManager.keySignal.add(this.boxFactory.onKeyDown, this.boxFactory);

@@ -52,7 +52,7 @@ Stage1.prototype = {
         this.boxG.tint = '0x121211'; //green
         this.boxB.tint = '0x121211'; //blue
 
-        this.inputCreator.boxFactory.colorSignal.add(this.onColorPicked, this);
+        this.inputCreator.boxFactory.getColorSignal().add(this.onColorPicked, this);
         this.playerWins();
         this.gameWon = false;
         Timer.createTimer(this.game, 18);
