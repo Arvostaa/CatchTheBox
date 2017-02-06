@@ -1,5 +1,5 @@
 var LEVEL_DATA = null;
-var assetsManager;
+
 var animationManager;
 
 LevelMenu = function(game) {
@@ -10,13 +10,14 @@ LevelMenu = function(game) {
 LevelMenu.prototype = {
 
     preload: function() {
-        assetsManager = new AssetsManager(this.game);
+        
         this.initProgressData();
+        AssetsManager(this.game);
 
     },
 
     create: function() {
-        // console.log("LLLLLLLLLLLLL");
+
         this.game.stage.backgroundColor = '#EDEDED';
         var mainMenuText = this.game.add.text(200, 60, "SELECT A LEVEL");
         mainMenuText.font = 'Rubik';
@@ -50,7 +51,7 @@ LevelMenu.prototype = {
             } catch (e) {
                 LEVEL_DATA = [];
             };
-            // error checking just to be sure, if localstorage contains something else then a JSON array (hackers?)
+            // error checking just to be sure, if localstorage contains something else then a JSON array 
             if (Object.prototype.toString.call(LEVEL_DATA) !== '[object Array]') {
                 LEVEL_DATA = [];
             };
