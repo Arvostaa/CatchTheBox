@@ -10,16 +10,20 @@ LevelMenu = function(game) {
 LevelMenu.prototype = {
 
     preload: function() {
-        
+
         this.initProgressData();
         AssetsManager(this.game);
 
     },
 
     create: function() {
-
+        this.style = {
+            font: "50px rubik",
+            fill: "#e0ebeb",
+            align: "center"
+        };
         this.game.stage.backgroundColor = '#EDEDED';
-        var mainMenuText = this.game.add.text(200, 60, "SELECT A LEVEL");
+        var mainMenuText = this.game.add.text(110, 60, "SELECT A LEVEL", this.style);
         mainMenuText.font = 'Rubik';
         mainMenuText.fill = '#7C6F6E';
 
@@ -28,6 +32,7 @@ LevelMenu.prototype = {
 
         this.createLevelIcons();
         this.animateLevelIcons();
+        ButtonGuiModule.Button(this.game, "MENU", 10, 600, 'menu');
 
     },
 
@@ -35,7 +40,7 @@ LevelMenu.prototype = {
 
     },
 
-    
+
     render: function() {
 
     },
@@ -62,7 +67,7 @@ LevelMenu.prototype = {
     createLevelIcons: function() {
         var levelnr = 0;
 
-        for (var y = 0; y < 4; y++) {
+        for (var y = 0; y < 2; y++) {
             for (var x = 0; x < 3; x++) {
                 // next level
                 levelnr = levelnr + 1;
